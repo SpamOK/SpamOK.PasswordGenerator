@@ -20,7 +20,15 @@ Install-Package SpamOK.PasswordGenerator -Version 1.0.0
 
 ## Usage
 ```csharp
-// TODO
+var passwordBuilder = new SpamOK.PasswordGenerator.PasswordBuilder();
+string password = passwordBuilder
+    .SetLength(12)
+    .UseNumbers(true)
+    .UseSpecialChars(true)
+    .UseNonAmbiguousChars(false)
+    .ExcludeChars("l1Io0O")
+    .UseAlgorithm(PasswordAlgorithm.Basic)
+    .Build();
 ```
 
 ## Contributing
