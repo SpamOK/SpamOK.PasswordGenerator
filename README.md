@@ -28,7 +28,7 @@ string password = passwordBuilder
     .UseSpecialChars(true)
     .UseNonAmbiguousChars(false)
     .ExcludeChars("l1Io0O")
-    .UseAlgorithm(PasswordAlgorithm.Basic)
+    .UseAlgorithm(SpamOK.PasswordGenerator.PasswordAlgorithm.Basic)
     .Build();
 ```
 
