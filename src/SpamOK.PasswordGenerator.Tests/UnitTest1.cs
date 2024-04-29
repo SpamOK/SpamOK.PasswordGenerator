@@ -47,4 +47,29 @@ public class Tests
             Assert.That(password, Does.Not.Contain("O"));
         }
     }
+    
+    /// <summary>
+    /// Ensure that every password generated is unique.
+    /// </summary>
+    [Test]
+    public void TestRandomPassword()
+    {
+        var passwordBuilder = new SpamOK.PasswordGenerator.PasswordBuilder();
+        
+        // Generate 100 passwords and check that none of them are the same
+        var passwords = new HashSet<string>();
+        for (int i = 0; i < 100; i++)
+        {
+            string password = passwordBuilder
+                .SetLength(12)
+                .UseNumbers(true)
+                .UseSpecialChars(true)
+                .UseNonAmbiguousChars(false)
+                .ExcludeChars("l1Io0O")
+                .UseAlgorithm(PasswordAlgorithm.Basic)
+                .Build();
+            
+            Assert.That(passwords.Add(password), Is.True);
+        }
+    }
 }
