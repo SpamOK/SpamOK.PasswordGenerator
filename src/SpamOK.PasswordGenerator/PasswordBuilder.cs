@@ -1,9 +1,12 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 
-namespace SpamOK.PasswordGenerator;
+namespace SpamOK.PasswordGenerator
+{
 
-public enum PasswordAlgorithm
+    public enum PasswordAlgorithm
     {
         Basic,
         Dictionary,
@@ -105,7 +108,10 @@ public enum PasswordAlgorithm
         private static string GenerateRandomPassword(int length, string charSet)
         {
             byte[] randomBytes = new byte[length];
-            RandomNumberGenerator.Fill(randomBytes); // Directly fill the array with random bytes.
+            using (var rng = new RNGCryptoServiceProvider())
+            {
+                rng.GetBytes(randomBytes);
+            }
 
             char[] chars = new char[length];
             for (int i = 0; i < length; i++)
@@ -116,3 +122,4 @@ public enum PasswordAlgorithm
             return new string(chars);
         }
     }
+}
