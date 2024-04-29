@@ -2,11 +2,18 @@
 	"settings": {
 		"documentationRules": {
 			"companyName": "SpamOK",
-			"copyrightText": "Copyright (c) {companyName}. All rights reserved.\nLicensed under the {licenseName} license. See {licenseFile} in the project root for full license information.",
+            "xmlHeader": true,
+            "copyrightText": "Copyright (c) {companyName}. All rights reserved.\nLicensed under the {licenseName} license. See {licenseFile} file in the project root for full license information.",
 			"variables": {
 				"licenseName": "MIT",
 				"licenseFile": "LICENSE.md"
-			}
+			},
+            "headerDecoration": "-----------------------------------------------------------------------"
+        },
+		"indentation": {
+			"indentationSize": 4,
+			"tabSize": 4,
+			"useTabs": false
 		}
 	}
 }
