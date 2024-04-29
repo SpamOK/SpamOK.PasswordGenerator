@@ -1,5 +1,9 @@
-// Copyright (c) 2024 SpamOK. All Rights Reserved.
-// Licensed under the MIT License. See LICENSE.mds in the project root for license information.
+//-----------------------------------------------------------------------
+// <copyright file="Tests.cs" company="SpamOK">
+// Copyright (c) SpamOK. All rights reserved.
+// Licensed under the MIT license. See LICENSE.md file in the project root for full license information.
+// </copyright>
+//-----------------------------------------------------------------------
 namespace SpamOK.PasswordGenerator.Tests
 {
     /// <summary>
