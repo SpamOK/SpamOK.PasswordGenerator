@@ -44,5 +44,27 @@ Don't forget to give the project a star! Thanks again!
 * Push to the Branch (**git push origin feature/AmazingFeature**)
 * Open a Pull Request
 
+### Building the project locally
+The SpamOK.PasswordGenerator library itself targets .NET Standard 2.0 which means it works on both .NET Framework and the modern .NET 6.0/7.0/8.0+.
+
+However the test project uses .NET 8.0 as the targeting framework which means .NET 8.0 needs to be installed on your machine in order to run tests.
+
+#### Full compatibility list for local development:
+- Visual Studio 2022 / JetBrains Rider 2024.1+
+- .NET 8.0+
+
+### Running tests locally
+This project uses NUnit for testing. To run the tests, use the following command:
+
+```bash
+dotnet test
+```
+
+To run the tests with code coverage statistics, use the following command:
+
+```bash
+dotnet test -c Release /p:CollectCoverage=true /p:CoverletOutput=coverage /p:CoverletOutputFormat=opencover
+```
+
 ## License
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the LICENSE.md file for details.
