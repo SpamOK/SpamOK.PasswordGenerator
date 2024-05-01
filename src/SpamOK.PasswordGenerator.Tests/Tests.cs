@@ -1,0 +1,94 @@
+//-----------------------------------------------------------------------
+// <copyright file="Tests.cs" company="SpamOK">
+// Copyright (c) SpamOK. All rights reserved.
+// Licensed under the MIT license. See LICENSE.md file in the project root for full license information.
+// </copyright>
+//-----------------------------------------------------------------------
+namespace SpamOK.PasswordGenerator.Tests
+{
+    /// <summary>
+    /// Main tests.
+    /// </summary>
+    public class Tests
+    {
+        /// <summary>
+        /// Setup method.
+        /// </summary>
+        [SetUp]
+        public void Setup()
+        {
+        }
+
+        /// <summary>
+        /// Test password length option.
+        /// </summary>
+        [Test]
+        public void TestPasswordLength()
+        {
+            var passwordBuilder = new SpamOK.PasswordGenerator.PasswordBuilder();
+            string password = passwordBuilder
+                .SetLength(12)
+                .UseNumbers(true)
+                .UseSpecialChars(true)
+                .UseNonAmbiguousChars(false)
+                .ExcludeChars("l1Io0O")
+                .UseAlgorithm(PasswordAlgorithm.Basic)
+                .Build();
+
+            Assert.That(password.Length, Is.EqualTo(12));
+        }
+
+        /// <summary>
+        /// Test ambiguous characters option.
+        /// </summary>
+        [Test]
+        public void TestPasswordAmbigiousChars()
+        {
+            var passwordBuilder = new SpamOK.PasswordGenerator.PasswordBuilder();
+            passwordBuilder = passwordBuilder
+                .SetLength(12)
+                .UseNumbers(true)
+                .UseSpecialChars(true)
+                .UseNonAmbiguousChars(true)
+                .UseAlgorithm(PasswordAlgorithm.Basic);
+
+            // Generate 100 passwords and check that none of them contain ambiguous characters
+            for (int i = 0; i < 100; i++)
+            {
+                string password = passwordBuilder.Build();
+
+                Assert.That(password, Does.Not.Contain("l"));
+                Assert.That(password, Does.Not.Contain("1"));
+                Assert.That(password, Does.Not.Contain("I"));
+                Assert.That(password, Does.Not.Contain("o"));
+                Assert.That(password, Does.Not.Contain("0"));
+                Assert.That(password, Does.Not.Contain("O"));
+            }
+        }
+
+        /// <summary>
+        /// Ensure that every password generated is unique.
+        /// </summary>
+        [Test]
+        public void TestRandomPassword()
+        {
+            var passwordBuilder = new SpamOK.PasswordGenerator.PasswordBuilder();
+
+            // Generate 100 passwords and check that none of them are the same
+            var passwords = new HashSet<string>();
+            for (int i = 0; i < 100; i++)
+            {
+                string password = passwordBuilder
+                    .SetLength(12)
+                    .UseNumbers(true)
+                    .UseSpecialChars(true)
+                    .UseNonAmbiguousChars(false)
+                    .ExcludeChars("l1Io0O")
+                    .UseAlgorithm(PasswordAlgorithm.Basic)
+                    .Build();
+
+                Assert.That(passwords.Add(password), Is.True);
+            }
+        }
+    }
+}
