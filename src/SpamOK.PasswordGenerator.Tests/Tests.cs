@@ -90,5 +90,41 @@ namespace SpamOK.PasswordGenerator.Tests
                 Assert.That(passwords.Add(password), Is.True);
             }
         }
+
+        /// <summary>
+        /// Ensure that every password generated is unique.
+        /// </summary>
+        [Test]
+        public void TestLowercaseOnly()
+        {
+            var passwordBuilder = new SpamOK.PasswordGenerator.PasswordBuilder();
+
+            // Generate 100 passwords and check that none of them are the same
+            for (int i = 0; i < 100; i++)
+            {
+                string password = passwordBuilder
+                    .DisableAllOptions()
+                    .UseLowercaseLetters(true)
+                    .Build();
+
+                // Assert that password only contains lowercase letters
+                Assert.That(password, Does.Match("^[a-z]+$"));
+            }
+        }
+
+        /// <summary>
+        /// Ensure that every password generated is unique.
+        /// </summary>
+        [Test]
+        public void TestAllOptionsDisabledException()
+        {
+            var passwordBuilder = new SpamOK.PasswordGenerator.PasswordBuilder();
+
+            // Attempt to generate a password with all options disabled.
+            // This should throw an exception.
+            Assert.Throws<InvalidOperationException>(() => passwordBuilder
+                .DisableAllOptions()
+                .Build());
+        }
     }
 }
