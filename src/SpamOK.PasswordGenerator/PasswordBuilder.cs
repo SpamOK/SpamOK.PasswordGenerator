@@ -21,25 +21,9 @@ namespace SpamOK.PasswordGenerator
         private bool useUppercaseLetters = true;
         private bool useNumbers = true;
         private bool useSpecialChars = true;
-        private bool useNonAmbiguousChars = false;
+        private bool useNonAmbiguousChars;
         private string excludedChars = string.Empty;
         private PasswordAlgorithm algorithm = PasswordAlgorithm.Basic;
-
-        /// <summary>
-        /// Reset all password options to either TRUE or FALSE. If all options are set to FALSE it is required
-        /// to enable at least one option before generating a password.
-        /// </summary>
-        /// <param name="defaultValue">True to enable all options, false to disable all options.</param>
-        private void ResetOptions(bool defaultValue)
-        {
-            this.useLowercaseLetters = defaultValue;
-            this.useUppercaseLetters = defaultValue;
-            this.useNumbers = defaultValue;
-            this.useSpecialChars = defaultValue;
-            this.useNonAmbiguousChars = defaultValue;
-            this.excludedChars = string.Empty;
-            this.algorithm = PasswordAlgorithm.Basic;
-        }
 
         /// <summary>
         /// Disable all password options. If all options are disabled it is required to enable at least one option
@@ -244,6 +228,22 @@ namespace SpamOK.PasswordGenerator
             }
 
             return GenerateRandomPassword(this.length, charSet.ToString());
+        }
+
+        /// <summary>
+        /// Reset all password options to either TRUE or FALSE. If all options are set to FALSE it is required
+        /// to enable at least one option before generating a password.
+        /// </summary>
+        /// <param name="defaultValue">True to enable all options, false to disable all options.</param>
+        private void ResetOptions(bool defaultValue)
+        {
+            this.useLowercaseLetters = defaultValue;
+            this.useUppercaseLetters = defaultValue;
+            this.useNumbers = defaultValue;
+            this.useSpecialChars = defaultValue;
+            this.useNonAmbiguousChars = defaultValue;
+            this.excludedChars = string.Empty;
+            this.algorithm = PasswordAlgorithm.Basic;
         }
     }
 }
