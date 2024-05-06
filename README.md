@@ -44,7 +44,7 @@ DisableAllOptions() and EnableAllOptions() methods to quickly set all options to
 This example will disable all options by default and then enable lowercase letters only:
 
 ```csharp
-var passwordBuilder = new SpamOK.PasswordGenerator.PasswordBuilder();
+var passwordBuilder = new SpamOK.PasswordGenerator.BasicPasswordBuilder();
 string password = passwordBuilder
     .DisableAllOptions()
     .UseLowercaseLetters(true)
