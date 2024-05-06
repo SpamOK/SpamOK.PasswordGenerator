@@ -24,7 +24,7 @@ Install-Package SpamOK.PasswordGenerator -Version 0.2.0
 ### Basic usage
 Basic usage of the library is as follows:
 ```csharp
-var passwordBuilder = new SpamOK.PasswordGenerator.PasswordBuilder();
+var passwordBuilder = new SpamOK.PasswordGenerator.BasicPasswordBuilder();
 string password = passwordBuilder
     .SetLength(12)
     .UseLowercaseLetters(true)
@@ -33,7 +33,6 @@ string password = passwordBuilder
     .UseSpecialChars(true)
     .UseNonAmbiguousChars(false)
     .ExcludeChars("abcdefg")
-    .UseAlgorithm(SpamOK.PasswordGenerator.PasswordAlgorithm.Basic)
     .GeneratePassword();
 ```
 

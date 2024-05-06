@@ -1,17 +1,20 @@
 //-----------------------------------------------------------------------
-// <copyright file="Tests.cs" company="SpamOK">
+// <copyright file="BasicPasswordTest.cs" company="SpamOK">
 // Copyright (c) SpamOK. All rights reserved.
 // Licensed under the MIT license. See LICENSE.md file in the project root for full license information.
 // </copyright>
 //-----------------------------------------------------------------------
+
 namespace SpamOK.PasswordGenerator.Tests
 {
+    using SpamOK.PasswordGenerator;
+
     /// <summary>
     /// Main tests.
     /// </summary>
-    public class Tests
+    public class BasicPasswordTest
     {
-        private PasswordBuilder _passwordBuilder;
+        private BasicPasswordBuilder _passwordBuilder;
 
         /// <summary>
         /// Setup method.
@@ -19,7 +22,7 @@ namespace SpamOK.PasswordGenerator.Tests
         [SetUp]
         public void Setup()
         {
-            _passwordBuilder = new PasswordBuilder();
+            _passwordBuilder = new BasicPasswordBuilder();
         }
 
         /// <summary>
@@ -196,8 +199,6 @@ namespace SpamOK.PasswordGenerator.Tests
         [Test]
         public void TestRandomPassword()
         {
-            _passwordBuilder = new PasswordBuilder();
-
             // Generate 100 passwords and check that none of them are the same
             var passwords = new HashSet<string>();
             for (int i = 0; i < 100; i++)
@@ -208,7 +209,6 @@ namespace SpamOK.PasswordGenerator.Tests
                     .UseSpecialChars(true)
                     .UseNonAmbiguousChars(false)
                     .ExcludeChars("l1Io0O")
-                    .UseAlgorithm(PasswordAlgorithm.Basic)
                     .GeneratePassword();
 
                 Assert.That(passwords.Add(password), Is.True);
@@ -221,8 +221,6 @@ namespace SpamOK.PasswordGenerator.Tests
         [Test]
         public void TestLowercaseOnly()
         {
-            _passwordBuilder = new PasswordBuilder();
-
             // Generate 100 passwords and check that none of them are the same
             for (int i = 0; i < 100; i++)
             {
