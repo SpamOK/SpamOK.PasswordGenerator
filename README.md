@@ -16,21 +16,42 @@ SpamOK.PasswordGenerator is a .NET library designed to generate highly secure, r
 To install SpamOK.PasswordGenerator, use the following NuGet command:
 
 ```bash
-Install-Package SpamOK.PasswordGenerator -Version 1.0.0
+Install-Package SpamOK.PasswordGenerator -Version 0.2.0
 ```
 
 ## Usage
+
+### Basic usage
+Basic usage of the library is as follows:
 ```csharp
 var passwordBuilder = new SpamOK.PasswordGenerator.PasswordBuilder();
 string password = passwordBuilder
     .SetLength(12)
+    .UseLowercaseLetters(true)
+    .UseUppercaseLetters(true)
     .UseNumbers(true)
     .UseSpecialChars(true)
     .UseNonAmbiguousChars(false)
-    .ExcludeChars("l1Io0O")
+    .ExcludeChars("abcdefg")
     .UseAlgorithm(SpamOK.PasswordGenerator.PasswordAlgorithm.Basic)
-    .Build();
+    .GeneratePassword();
 ```
+
+### Enable/disable all options
+
+Instead of enabling or disabling each option individually, you can use the
+DisableAllOptions() and EnableAllOptions() methods to quickly set all options to a specific state.
+
+This example will disable all options by default and then enable lowercase letters only:
+
+```csharp
+var passwordBuilder = new SpamOK.PasswordGenerator.PasswordBuilder();
+string password = passwordBuilder
+    .DisableAllOptions()
+    .UseLowercaseLetters(true)
+    .GeneratePassword();
+```
+
 
 ## Contributing
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.

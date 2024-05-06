@@ -16,15 +16,14 @@ namespace SpamOK.PasswordGenerator
     /// </summary>
     public class PasswordBuilder
     {
-        private int length = 8;
-        private bool useLowercaseLetters = true;
-        private bool _new = true;
-        private bool useUppercaseLetters = true;
-        private bool useNumbers = true;
-        private bool useSpecialChars = true;
-        private bool useNonAmbiguousChars;
-        private string excludedChars = string.Empty;
-        private PasswordAlgorithm algorithm = PasswordAlgorithm.Basic;
+        private int _length = 8;
+        private bool _useLowercaseLetters = true;
+        private bool _useUppercaseLetters = true;
+        private bool _useNumbers = true;
+        private bool _useSpecialChars = true;
+        private bool _useNonAmbiguousChars;
+        private string _excludedChars = string.Empty;
+        private PasswordAlgorithm _algorithm = PasswordAlgorithm.Basic;
 
         /// <summary>
         /// Disable all password options. If all options are disabled it is required to enable at least one option
@@ -34,11 +33,6 @@ namespace SpamOK.PasswordGenerator
         public PasswordBuilder DisableAllOptions()
         {
             this.ResetOptions(false);
-            this._new = false;
-            if (this._new)
-            {
-                // Do something
-            }
 
             return this;
         }
@@ -60,7 +54,7 @@ namespace SpamOK.PasswordGenerator
         /// <returns>Updated PasswordBuilder instance.</returns>
         public PasswordBuilder SetLength(int length)
         {
-            this.length = length;
+            _length = length;
             return this;
         }
 
@@ -71,7 +65,7 @@ namespace SpamOK.PasswordGenerator
         /// <returns>Updated PasswordBuilder instance.</returns>
         public PasswordBuilder UseLowercaseLetters(bool useLowercaseLetters)
         {
-            this.useLowercaseLetters = useLowercaseLetters;
+            _useLowercaseLetters = useLowercaseLetters;
             return this;
         }
 
@@ -82,7 +76,7 @@ namespace SpamOK.PasswordGenerator
         /// <returns>Updated PasswordBuilder instance.</returns>
         public PasswordBuilder UseUppercaseLetters(bool useUppercaseLetters)
         {
-            this.useUppercaseLetters = useUppercaseLetters;
+            _useUppercaseLetters = useUppercaseLetters;
             return this;
         }
 
@@ -93,7 +87,7 @@ namespace SpamOK.PasswordGenerator
         /// <returns>Updated PasswordBuilder instance.</returns>
         public PasswordBuilder UseNumbers(bool useNumbers)
         {
-            this.useNumbers = useNumbers;
+            _useNumbers = useNumbers;
             return this;
         }
 
@@ -104,7 +98,7 @@ namespace SpamOK.PasswordGenerator
         /// <returns>Updated PasswordBuilder instance.</returns>
         public PasswordBuilder UseSpecialChars(bool useSpecial)
         {
-            this.useSpecialChars = useSpecial;
+            _useSpecialChars = useSpecial;
             return this;
         }
 
@@ -116,7 +110,7 @@ namespace SpamOK.PasswordGenerator
         /// <returns>Updated PasswordBuilder instance.</returns>
         public PasswordBuilder UseNonAmbiguousChars(bool useNonAmbiguous)
         {
-            this.useNonAmbiguousChars = useNonAmbiguous;
+            _useNonAmbiguousChars = useNonAmbiguous;
             return this;
         }
 
@@ -127,7 +121,7 @@ namespace SpamOK.PasswordGenerator
         /// <returns>Updated PasswordBuilder instance.</returns>
         public PasswordBuilder ExcludeChars(string excludedChars)
         {
-            this.excludedChars = excludedChars;
+            _excludedChars = excludedChars;
             return this;
         }
 
@@ -138,19 +132,19 @@ namespace SpamOK.PasswordGenerator
         /// <returns>Updated PasswordBuilder instance.</returns>
         public PasswordBuilder UseAlgorithm(PasswordAlgorithm algorithm)
         {
-            this.algorithm = algorithm;
+            _algorithm = algorithm;
             return this;
         }
 
         /// <summary>
-        /// Build the password based on the configured settings.
+        /// Generate a new password based on the configured settings.
         /// </summary>
         /// <returns>Generated password.</returns>
         /// <exception cref="NotImplementedException">Thrown if algorithm is unsupported.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown if algorithm is unknown.</exception>
-        public string Build()
+        public string GeneratePassword()
         {
-            switch (this.algorithm)
+            switch (_algorithm)
             {
                 case PasswordAlgorithm.Basic:
                     return this.GenerateBasicPassword();
@@ -195,36 +189,36 @@ namespace SpamOK.PasswordGenerator
             const string uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             const string numbers = "0123456789";
             const string specialChars = "!@#$%^&*()-_=+[]{}|;:,.<>?";
-            const string nonAmbiguousChars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789";
+            const string nonAmbiguousChars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789!@#$%^&*-=+[]|:,<>?";
 
             StringBuilder charSet = new StringBuilder();
 
-            if (this.useLowercaseLetters)
+            if (_useLowercaseLetters)
             {
                 charSet.Append(lowercaseLetters);
             }
 
-            if (this.useUppercaseLetters)
+            if (_useUppercaseLetters)
             {
                 charSet.Append(uppercaseLetters);
             }
 
-            if (this.useNumbers)
+            if (_useNumbers)
             {
                 charSet.Append(numbers);
             }
 
-            if (this.useSpecialChars)
+            if (_useSpecialChars)
             {
                 charSet.Append(specialChars);
             }
 
-            if (this.useNonAmbiguousChars)
+            if (_useNonAmbiguousChars)
             {
                 charSet = new StringBuilder(new string(charSet.ToString().Intersect(nonAmbiguousChars).ToArray()));
             }
 
-            foreach (char c in this.excludedChars)
+            foreach (char c in _excludedChars)
             {
                 charSet = charSet.Replace(c.ToString(), string.Empty);
             }
@@ -234,7 +228,7 @@ namespace SpamOK.PasswordGenerator
                 throw new InvalidOperationException("No characters to choose from. Please enable at least one character set in the PasswordBuilder options, e.g. UseLowercaseLetters(true).");
             }
 
-            return GenerateRandomPassword(this.length, charSet.ToString());
+            return GenerateRandomPassword(_length, charSet.ToString());
         }
 
         /// <summary>
@@ -244,13 +238,13 @@ namespace SpamOK.PasswordGenerator
         /// <param name="defaultValue">True to enable all options, false to disable all options.</param>
         private void ResetOptions(bool defaultValue)
         {
-            this.useLowercaseLetters = defaultValue;
-            this.useUppercaseLetters = defaultValue;
-            this.useNumbers = defaultValue;
-            this.useSpecialChars = defaultValue;
-            this.useNonAmbiguousChars = defaultValue;
-            this.excludedChars = string.Empty;
-            this.algorithm = PasswordAlgorithm.Basic;
+            _useLowercaseLetters = defaultValue;
+            _useUppercaseLetters = defaultValue;
+            _useNumbers = defaultValue;
+            _useSpecialChars = defaultValue;
+            _useNonAmbiguousChars = defaultValue;
+            _excludedChars = string.Empty;
+            _algorithm = PasswordAlgorithm.Basic;
         }
     }
 }
