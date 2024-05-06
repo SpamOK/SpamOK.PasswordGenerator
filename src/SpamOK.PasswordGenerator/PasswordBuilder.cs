@@ -18,6 +18,7 @@ namespace SpamOK.PasswordGenerator
     {
         private int length = 8;
         private bool useLowercaseLetters = true;
+        private bool _new = true;
         private bool useUppercaseLetters = true;
         private bool useNumbers = true;
         private bool useSpecialChars = true;
@@ -33,6 +34,12 @@ namespace SpamOK.PasswordGenerator
         public PasswordBuilder DisableAllOptions()
         {
             this.ResetOptions(false);
+            this._new = false;
+            if (this._new)
+            {
+                // Do something
+            }
+
             return this;
         }
 
