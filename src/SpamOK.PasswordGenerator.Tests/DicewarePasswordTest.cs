@@ -8,6 +8,7 @@
 namespace SpamOK.PasswordGenerator.Tests
 {
     using SpamOK.PasswordGenerator;
+    using SpamOK.PasswordGenerator.Algorithms.Diceware;
 
     /// <summary>
     /// Main tests.
@@ -26,17 +27,34 @@ namespace SpamOK.PasswordGenerator.Tests
         }
 
         /// <summary>
-        /// Ensure that DisableAllOptions works as expected.
+        /// Test that generating a diceware password with default options works.
         /// </summary>
         [Test]
-        public void TestPasswordGeneration()
+        public void TestPasswordGenerationDefault()
         {
-            var test = _passwordBuilder
-                .GeneratePassword();
-
-            // Attempt to generate a password with all options disabled.
-            // This should throw an exception.
             Assert.IsNotEmpty(_passwordBuilder
+                .GeneratePassword());
+        }
+
+        /// <summary>
+        /// Test that generating a diceware password with the English word list works.
+        /// </summary>
+        [Test]
+        public void TestPasswordGenerationEnglish()
+        {
+            Assert.IsNotEmpty(_passwordBuilder
+                .SetWordList(DicewareWordList.English)
+                .GeneratePassword());
+        }
+
+        /// <summary>
+        /// Test that generating a diceware password with the Dutch word list works.
+        /// </summary>
+        [Test]
+        public void TestPasswordGenerationDutch()
+        {
+            Assert.IsNotEmpty(_passwordBuilder
+                .SetWordList(DicewareWordList.Dutch)
                 .GeneratePassword());
         }
     }

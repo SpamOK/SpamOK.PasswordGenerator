@@ -15,11 +15,13 @@ namespace SpamOK.PasswordGenerator.Algorithms.Diceware
         /// <summary>
         /// English word list.
         /// </summary>
+        [ResourceName("SpamOK.PasswordGenerator.Algorithms.Diceware.WordLists.en.diceware")]
         English,
 
         /// <summary>
         /// Dutch word list.
         /// </summary>
+        [ResourceName("SpamOK.PasswordGenerator.Algorithms.Diceware.WordLists.nl.diceware")]
         Dutch,
     }
 }

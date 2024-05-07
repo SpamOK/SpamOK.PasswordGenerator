@@ -17,9 +17,20 @@ namespace SpamOK.PasswordGenerator
     public class DicewarePasswordBuilder
     {
         private int _count = 5;
+        private DicewareWordList _wordList = DicewareWordList.English;
 
         // private DicewareSeparator _separator;
-        // private DicewareWordList _wordList;
+
+        /// <summary>
+        /// Configure the word list to use.
+        /// </summary>
+        /// <param name="wordList">The wordlist to use. Defaults to DicewareWordList.English.</param>
+        /// <returns>Updated DicewarePasswordBuilder instance.</returns>
+        public DicewarePasswordBuilder SetWordList(DicewareWordList wordList)
+        {
+            _wordList = wordList;
+            return this;
+        }
 
         /// <summary>
         /// Generate a new password based on the configured settings.
@@ -27,36 +38,57 @@ namespace SpamOK.PasswordGenerator
         /// <returns>Generated password.</returns>
         public string GeneratePassword()
         {
-            var diceRolls = GenerateDiceRoll(_count);
+            string[] words = new string[_count];
 
-            // Return dice rolls array elements as a concatenated string.
-            return string.Join(string.Empty, diceRolls);
+            // Get a diceware word for each word in the password.
+            for (int i = 0; i < _count; i++)
+            {
+                // Generate a random diceware index by rolling 5 dices and concatenating the result numbers.
+                var dicewareIndex = GenerateRandomDicewareIndex();
+
+                // Get the word from the word list corresponding to the index.
+                // Assuming the file is at "C:/path/to/words.txt"
+                DicewareLookup lookup = new DicewareLookup(_wordList);
+
+                // Example: Retrieve the word for dice index "11111"
+                try
+                {
+                    string word = lookup.GetWordByDiceIndex(dicewareIndex);
+                    words[i] = word;
+                    Console.WriteLine(word);  // Outputs the first word in the file
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
+            return string.Join("-", words);
         }
 
         /// <summary>
-        /// Generate a dice roll and each number as an array.
+        /// Generate a diceword index by rolling 5 dices and concatenating the results.
         /// </summary>
-        /// <param name="diceCount">The amount of dices to roll.</param>
-        /// <returns>int[] with each dice result as separate element.</returns>
-        private int[] GenerateDiceRoll(int diceCount)
+        /// <returns>Int diceword index.</returns>
+        private int GenerateRandomDicewareIndex()
         {
-            // Roll a 1-6 dice for each word in the password based on count.
             // Roll a 1-6 dice.
-            byte[] randomBytes = new byte[diceCount];
+            byte[] randomBytes = new byte[5];
             using (var rng = new RNGCryptoServiceProvider())
             {
                 rng.GetBytes(randomBytes);
             }
 
-            int[] diceRolls = new int[diceCount];
+            int[] diceRolls = new int[5];
             string charSet = "123456";
-            for (int i = 0; i < diceCount; i++)
+            for (int i = 0; i < 5; i++)
             {
                 // Convert the character to its numeric value (1-6)
                 diceRolls[i] = charSet[randomBytes[i] % charSet.Length] - '0';
             }
 
-            return diceRolls;
+            // Concatenate the dice rolls into a single number.
+            return int.Parse(string.Concat(diceRolls));
         }
     }
 }

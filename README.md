@@ -96,3 +96,8 @@ NL Diceware wordlist:
 ```
 https://mko.re/diceware/diceware-wordlist-8k-composites-nl.txt
 ```
+
+EN Diceware wordlist:
+```
+https://theworld.com/~reinhold/diceware8k.txt
+```
