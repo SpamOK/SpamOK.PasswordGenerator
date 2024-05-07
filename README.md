@@ -88,3 +88,11 @@ dotnet test -c Release /p:CollectCoverage=true /p:CoverletOutput=coverage /p:Cov
 
 ## License
 This project is licensed under the MIT License - see the LICENSE.md file for details.
+
+## Credits
+Credits belong to the following sources that are used in this project:
+
+NL Diceware wordlist:
+```
+https://mko.re/diceware/diceware-wordlist-8k-composites-nl.txt
+```

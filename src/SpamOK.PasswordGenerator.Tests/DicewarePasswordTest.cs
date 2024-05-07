@@ -31,6 +31,9 @@ namespace SpamOK.PasswordGenerator.Tests
         [Test]
         public void TestPasswordGeneration()
         {
+            var test = _passwordBuilder
+                .GeneratePassword();
+
             // Attempt to generate a password with all options disabled.
             // This should throw an exception.
             Assert.IsNotEmpty(_passwordBuilder
