@@ -20,8 +20,14 @@ Install-Package SpamOK.PasswordGenerator -Version 0.2.0
 ```
 
 ## Usage
+This library supports multiple password generation methods, which are:
 
-### Basic usage
+1. Basic password
+   - This method generates a random password using a (configurable) combination of lowercase letters, uppercase letters, numbers, and special characters.
+2. Diceware passphrase generation
+   - This method generates a password using a list of words from a wordlist. The words are selected randomly from the list and concatenated to form a password.
+
+### 1. Basic password
 Basic usage of the library is as follows:
 ```csharp
 var passwordBuilder = new SpamOK.PasswordGenerator.BasicPasswordBuilder();
@@ -36,7 +42,7 @@ string password = passwordBuilder
     .GeneratePassword();
 ```
 
-### Enable/disable all options
+#### (Optional) Enable/disable all options
 
 Instead of enabling or disabling each option individually, you can use the
 DisableAllOptions() and EnableAllOptions() methods to quickly set all options to a specific state.
@@ -51,6 +57,20 @@ string password = passwordBuilder
     .GeneratePassword();
 ```
 
+### 2. Diceware passphrase generation
+Diceware passphrase generation is a method of generating passwords using a list of words from a wordlist. The words are selected randomly from the list and concatenated to form a passphrase.
+You can read more about Diceware passphrases [here](https://en.wikipedia.org/wiki/Diceware).
+
+This library supports Diceware in multiple languages, including English and Dutch. The default language is English.
+
+Basic usage of the library is as follows:
+```csharp
+var passwordBuilder = new SpamOK.PasswordGenerator.DicewarePasswordBuilder();
+string password = passwordBuilder
+    .SetLength(6)
+    .SetWordList(SpamOK.PasswordGenerator.Algorithms.Diceware.DicewareWordList.English)
+    .GeneratePassword();
+```
 
 ## Contributing
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.

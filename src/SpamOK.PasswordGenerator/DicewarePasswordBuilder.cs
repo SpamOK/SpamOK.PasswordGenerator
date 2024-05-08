@@ -18,6 +18,7 @@ namespace SpamOK.PasswordGenerator
     {
         private int _count = 5;
         private DicewareWordList _wordList = DicewareWordList.English;
+        private DicewareSeparator _separator = DicewareSeparator.Dash;
 
         // private DicewareSeparator _separator;
 
@@ -29,6 +30,17 @@ namespace SpamOK.PasswordGenerator
         public DicewarePasswordBuilder SetWordList(DicewareWordList wordList)
         {
             _wordList = wordList;
+            return this;
+        }
+
+        /// <summary>
+        /// Configure the separator to use.
+        /// </summary>
+        /// <param name="separator">The separator to use. Defaults to DicewareSeparator.Dash.</param>
+        /// <returns>Updated DicewarePasswordBuilder instance.</returns>
+        public DicewarePasswordBuilder SetSeparator(DicewareSeparator separator)
+        {
+            _separator = separator;
             return this;
         }
 
@@ -63,7 +75,7 @@ namespace SpamOK.PasswordGenerator
                 }
             }
 
-            return string.Join("-", words);
+            return string.Join(_separator.GetSeparatorCharacter().ToString(), words);
         }
 
         /// <summary>

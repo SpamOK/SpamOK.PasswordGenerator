@@ -30,5 +30,22 @@ namespace SpamOK.PasswordGenerator.Algorithms.Diceware
             // Return the filename if the attribute is found, otherwise null
             return attribute?.ResourceName;
         }
+
+        /// <summary>
+        /// Get the resource name of the word list.
+        /// </summary>
+        /// <param name="value">DicewareWordList value.</param>
+        /// <returns>ResourceName attribute.</returns>
+        public static char? GetSeparatorCharacter(this DicewareSeparator value)
+        {
+            // Retrieve the field info for the specific enum value
+            FieldInfo field = value.GetType().GetField(value.ToString());
+
+            // Get the FilenameAttribute on the enum field
+            SeparatorCharacterAttribute attribute = field.GetCustomAttribute<SeparatorCharacterAttribute>();
+
+            // Return the filename if the attribute is found, otherwise null
+            return attribute?.SeparatorCharacter;
+        }
     }
 }

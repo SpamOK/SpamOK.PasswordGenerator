@@ -57,5 +57,45 @@ namespace SpamOK.PasswordGenerator.Tests
                 .SetWordList(DicewareWordList.Dutch)
                 .GeneratePassword());
         }
+
+        /// <summary>
+        /// Test that generating a diceware password with the Dutch word list works.
+        /// </summary>
+        [Test]
+        public void TestPasswordGenerationSeparators()
+        {
+            var password = _passwordBuilder
+                .SetSeparator(DicewareSeparator.Dot)
+                .GeneratePassword();
+
+            Assert.That(password, Does.Contain("."));
+
+            password = _passwordBuilder
+                .SetSeparator(DicewareSeparator.Space)
+                .GeneratePassword();
+
+            Assert.That(password, Does.Contain(" "));
+
+            password = _passwordBuilder
+                .SetSeparator(DicewareSeparator.Dash)
+                .GeneratePassword();
+
+            Assert.That(password, Does.Contain("-"));
+
+            password = _passwordBuilder
+                .SetSeparator(DicewareSeparator.Underscore)
+                .GeneratePassword();
+
+            Assert.That(password, Does.Contain("_"));
+
+            password = _passwordBuilder
+                .SetSeparator(DicewareSeparator.None)
+                .GeneratePassword();
+
+            Assert.That(password, Does.Not.Contain("-"));
+            Assert.That(password, Does.Not.Contain(" "));
+            Assert.That(password, Does.Not.Contain("."));
+            Assert.That(password, Does.Not.Contain("_"));
+        }
     }
 }

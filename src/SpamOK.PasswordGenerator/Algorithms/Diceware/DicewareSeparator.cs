@@ -15,26 +15,31 @@ namespace SpamOK.PasswordGenerator.Algorithms.Diceware
         /// <summary>
         /// No separator.
         /// </summary>
+        [SeparatorCharacter('\0')]
         None,
 
         /// <summary>
         /// A dash separator.
         /// </summary>
+        [SeparatorCharacter('-')]
         Dash,
 
         /// <summary>
         /// Space separator.
         /// </summary>
+        [SeparatorCharacter(' ')]
         Space,
 
         /// <summary>
         /// Underscore separator.
         /// </summary>
+        [SeparatorCharacter('_')]
         Underscore,
 
         /// <summary>
         /// Dot separator.
         /// </summary>
+        [SeparatorCharacter('.')]
         Dot,
     }
 }
