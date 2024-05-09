@@ -224,6 +224,12 @@ namespace SpamOK.PasswordGenerator.Tests
             Assert.That(password.CountCapitalLetters(), Is.EqualTo(5));
 
             password = _passwordBuilder
+                .SetCapitalization(DicewareCapitalization.Lowercase)
+                .GeneratePassword();
+
+            Assert.That(password, Is.EqualTo(password.ToLower()));
+
+            password = _passwordBuilder
                 .SetCapitalization(DicewareCapitalization.Uppercase)
                 .GeneratePassword();
 

@@ -99,20 +99,12 @@ namespace SpamOK.PasswordGenerator
 
                 // Get the word from the word list corresponding to the index.
                 DicewareLookup lookup = new DicewareLookup(_wordList);
+                string word = lookup.GetWordByDiceIndex(dicewareIndex);
 
-                try
-                {
-                    string word = lookup.GetWordByDiceIndex(dicewareIndex);
+                // Capitalize the word based on the configured capitalization.
+                word = CapitalizeWord(word);
 
-                    // Capitalize the word based on the configured capitalization.
-                    word = CapitalizeWord(word);
-
-                    words[i] = word;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                words[i] = word;
             }
 
             string passphrase = string.Join(_separator.GetSeparatorCharacter().ToString(), words);
