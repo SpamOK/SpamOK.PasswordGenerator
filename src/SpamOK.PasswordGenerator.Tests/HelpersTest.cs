@@ -47,5 +47,18 @@ namespace SpamOK.PasswordGenerator.Tests
                 Assert.That(test, Is.True);
             });
         }
+
+        /// <summary>
+        /// Test that hackerify helper method work as expected.
+        /// </summary>
+        [Test]
+        public void TestHackerifyHelper()
+        {
+            Assert.Multiple(() =>
+            {
+                Assert.That(HackerifyHelper.ConvertToHackerify("normalstring"), Is.EqualTo("n0rm@1s7r!ng"));
+                Assert.That(HackerifyHelper.ConvertToHackerify("leetspeak"), Is.EqualTo("1337sp3@k"));
+            });
+        }
     }
 }

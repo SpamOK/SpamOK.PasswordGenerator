@@ -27,6 +27,7 @@ namespace SpamOK.PasswordGenerator
         private DicewareSeparator _separator = DicewareSeparator.Dash;
         private DicewareCapitalization _capitalization = DicewareCapitalization.None;
         private DicewareSalt _salt = DicewareSalt.None;
+        private bool _hackerify = false;
 
         /// <summary>
         /// Configure the word list to use.
@@ -84,6 +85,17 @@ namespace SpamOK.PasswordGenerator
         }
 
         /// <summary>
+        /// Enable or disable hackerify mode which converts the passphrase to leetspeak.
+        /// </summary>
+        /// <param name="value">TRUE to enable, FALSE to disable. Defaults to FALSE.</param>
+        /// <returns>Updated DicewarePasswordBuilder instance.</returns>
+        public DicewarePasswordBuilder SetHackerifyMode(bool value)
+        {
+            _hackerify = value;
+            return this;
+        }
+
+        /// <summary>
         /// Generate a new password based on the configured settings.
         /// </summary>
         /// <returns>Generated password.</returns>
@@ -112,6 +124,12 @@ namespace SpamOK.PasswordGenerator
             // Add salt to the passphrase based on the configured salt option.
             var salt = RandomHelper.GenerateRandomAlphanumericCharacter();
             passphrase = AddSalt(salt, passphrase);
+
+            // Convert the passphrase to leetspeak if hackerify mode is enabled.
+            if (_hackerify)
+            {
+                passphrase = HackerifyHelper.ConvertToHackerify(passphrase);
+            }
 
             return passphrase;
         }
