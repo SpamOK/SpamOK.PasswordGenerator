@@ -3,13 +3,33 @@
 
 ## Description
 
-SpamOK.PasswordGenerator is a .NET library designed to generate highly secure, random passwords. It helps developers ensure their applications adhere to best practices in password security, making it ideal for systems requiring high levels of data protection.
+SpamOK.PasswordGenerator is a .NET library designed to generate highly secure, customizable, random passwords. It helps developers ensure their applications adhere to best practices in password security, making it ideal for systems requiring high levels of data protection.
+
+The library supports two password generation methods: basic password generation and [Diceware](https://theworld.com/~reinhold/diceware.html) passphrase generation. The basic password generation method allows you to generate passwords with a configurable length and includes options for numbers, special characters, and uppercase/lowercase differentiation. The Diceware passphrase generation method generates passwords using a list of words from a wordlist, with options for word capitalization, word separation, and salt addition.
 
 ## Features
+This library is designed to be easy to use and highly configurable, allowing developers to generate passwords that meet their specific requirements. The library is also fully unit tested, ensuring that it is reliable and robust.
 
-- Generate passwords with configurable length.
-- Optionally include numbers, special characters, and uppercase/lowercase differentiation.
-- Uses cryptographically secure random number generation.
+This library features cryptographically secure random number generation. Additionally it provides generic helper methods
+for things such as checking password strength, hackerifying strings and more.
+
+### Basic password generation
+- Generate random passwords with a configurable length.
+- Include numbers, special characters, and uppercase/lowercase differentiation.
+- Exclude specific characters from the password.
+- Use non-ambiguous characters to avoid confusion between similar characters (e.g., 'l' and '1').
+
+### Diceware passphrase generation
+- Generate passwords using a list of words from a wordlist.
+- Configure the amount of words, word capitalization, word separation, and salt addition.
+- Supports multiple languages, including:
+  - English
+  - Dutch
+  - German
+  - French
+  - Spanish
+  - Italian
+  - Ukrainian.
 
 ## Installation
 
@@ -20,15 +40,11 @@ Install-Package SpamOK.PasswordGenerator -Version 0.2.0
 ```
 
 ## Usage
-This library supports multiple password generation methods, which are:
-
-1. Basic password
-   - This method generates a random password using a (configurable) combination of lowercase letters, uppercase letters, numbers, and special characters.
-2. Diceware passphrase generation
-   - This method generates a password using a list of words from a wordlist. The words are selected randomly from the list and concatenated to form a password.
+Below you can find examples of how to generate passwords using this library.
+The PasswordGenerator classes apply the builder pattern, allowing you to set various options before generating the password.
 
 ### 1. Basic password
-Basic usage of the library is as follows:
+Generating a basic password is done as follows:
 ```csharp
 var passwordBuilder = new SpamOK.PasswordGenerator.BasicPasswordBuilder();
 string password = passwordBuilder
@@ -47,7 +63,7 @@ string password = passwordBuilder
 Instead of enabling or disabling each option individually, you can use the
 DisableAllOptions() and EnableAllOptions() methods to quickly set all options to a specific state.
 
-This example will disable all options by default and then enable lowercase letters only:
+This example will disable all options and then enable lowercase letters only:
 
 ```csharp
 var passwordBuilder = new SpamOK.PasswordGenerator.BasicPasswordBuilder();
@@ -58,12 +74,12 @@ string password = passwordBuilder
 ```
 
 ### 2. Diceware passphrase generation
-Diceware passphrase generation is a method of generating passwords using a list of words from a wordlist. The words are selected randomly from the list and concatenated to form a passphrase.
+Diceware passphrase generation is a method of generating passwords using a dictionary. The words are selected randomly from the dictionary and concatenated to form a passphrase.
 You can read more about Diceware passphrases [here](https://en.wikipedia.org/wiki/Diceware).
 
-This library supports Diceware in multiple languages, including English and Dutch. The default language is English.
+This library supports Diceware in multiple languages, including English, Dutch, German, French, Italian, Spanish and Ukrainian. The default language is English.
 
-Basic usage of the library is as follows:
+Basic usage is as follows:
 ```csharp
 using SpamOK.PasswordGenerator.Algorithms.Diceware;
 
@@ -78,7 +94,7 @@ string password = passwordBuilder
 ```
 
 #### (Optional) Simple variant using default values
-If you wish to generate a diceware password using the default values, then you can directly call the GeneratePassword() method without setting any options:
+If you wish to generate a diceware password using all default values, then you can directly call the GeneratePassword() method without setting any options:
 
 ```csharp
 var passwordBuilder = new SpamOK.PasswordGenerator.DicewarePasswordBuilder();
