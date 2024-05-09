@@ -4,6 +4,9 @@
 // Licensed under the MIT license. See LICENSE.md file in the project root for full license information.
 // </copyright>
 // -----------------------------------------------------------------------
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("SpamOK.PasswordGenerator.Tests")]
 
 namespace SpamOK.PasswordGenerator.Algorithms.Diceware
 {
@@ -42,7 +45,13 @@ namespace SpamOK.PasswordGenerator.Algorithms.Diceware
             return _words[index];
         }
 
-        private void LoadWords(string resourceName)
+        /// <summary>
+        /// Load words from specified diceware file.
+        /// </summary>
+        /// <param name="resourceName">The embedded resource name.</param>
+        /// <exception cref="FileNotFoundException">Thrown if embedded resource name is not found.</exception>
+        /// <exception cref="InvalidDataException">Thrown if file does not match expected diceware file structure.</exception>
+        internal void LoadWords(string resourceName)
         {
             // Load all words from the file into an array.
             // This assumes the file's encoding is UTF-8; adjust if necessary.

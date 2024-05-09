@@ -12,7 +12,7 @@ namespace SpamOK.PasswordGenerator.Algorithms.Diceware.Extensions
     /// <summary>
     /// Resource name attribute for diceware word lists.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Field, Inherited = false, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Field)]
     public sealed class ResourceNameAttribute : Attribute
     {
         /// <summary>

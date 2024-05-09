@@ -305,5 +305,16 @@ namespace SpamOK.PasswordGenerator.Tests
             _passwordBuilder.SetSalt(DicewareSalt.Suffix);
             Assert.That(_passwordBuilder.AddSalt(salt, password), Is.EqualTo(password + salt));
         }
+
+        /// <summary>
+        /// Test that trying to load a non-existing word list throws an exception.
+        /// </summary>
+        [Test]
+        public void TestPasswordGenerationNonExistingWordList()
+        {
+            // Assert that trying to load a non-existing word list throws an exception.
+            DicewareLookup lookup = new DicewareLookup(DicewareWordList.English);
+            Assert.Throws<FileNotFoundException>(() => lookup.LoadWords("unknown-wordlist"));
+        }
     }
 }

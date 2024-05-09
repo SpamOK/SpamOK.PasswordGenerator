@@ -12,7 +12,7 @@ namespace SpamOK.PasswordGenerator.Algorithms.Diceware.Extensions
     /// <summary>
     /// Separator character attribute for diceware word lists.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Field, Inherited = false, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Field)]
     public sealed class SeparatorCharacterAttribute : Attribute
     {
         /// <summary>

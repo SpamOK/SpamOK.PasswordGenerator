@@ -23,27 +23,34 @@ namespace SpamOK.PasswordGenerator.Tests
             /// </summary>
             [SeparatorCharacter('\0')]
             [ResourceName("SpamOK.PasswordGenerator.Algorithms.Diceware.WordLists.en.diceware")]
-            Value1,
+            WithAttributes,
 
             /// <summary>
             /// Test value without attributes.
             /// </summary>
-            Value2,
+            WithoutAttributes,
         }
 
         /// <summary>
         /// Test that calling enum extension methods with invalid enum values throws an exception.
         /// </summary>
         [Test]
-        public void TestEnumExtensionException()
+        public void TestEnumExtensionAttributeValid()
         {
             // Test that calling extension methods on an enum value with attributes works.
-            Assert.That(TestEnum.Value1.GetSeparatorCharacter(), Is.EqualTo('\0'));
-            Assert.That(TestEnum.Value1.GetResourceName(), Is.EqualTo("SpamOK.PasswordGenerator.Algorithms.Diceware.WordLists.en.diceware"));
+            Assert.That(TestEnum.WithAttributes.GetSeparatorCharacter(), Is.EqualTo('\0'));
+            Assert.That(TestEnum.WithAttributes.GetResourceName(), Is.EqualTo("SpamOK.PasswordGenerator.Algorithms.Diceware.WordLists.en.diceware"));
+        }
 
+        /// <summary>
+        /// Test that calling enum extension methods with invalid enum values throws an exception.
+        /// </summary>
+        [Test]
+        public void TestEnumExtensionAttributeMissingException()
+        {
             // Test that calling extension methods on an enum value without attributes throws an exception.
-            Assert.Throws<ArgumentNullException>(() => TestEnum.Value2.GetSeparatorCharacter());
-            Assert.Throws<ArgumentNullException>(() => TestEnum.Value2.GetResourceName());
+            Assert.Throws<ArgumentNullException>(() => TestEnum.WithoutAttributes.GetSeparatorCharacter());
+            Assert.Throws<ArgumentNullException>(() => TestEnum.WithoutAttributes.GetResourceName());
         }
     }
 }
