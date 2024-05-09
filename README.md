@@ -65,11 +65,24 @@ This library supports Diceware in multiple languages, including English and Dutc
 
 Basic usage of the library is as follows:
 ```csharp
+using SpamOK.PasswordGenerator.Algorithms.Diceware;
+
 var passwordBuilder = new SpamOK.PasswordGenerator.DicewarePasswordBuilder();
 string password = passwordBuilder
-    .SetLength(6)
-    .SetWordList(SpamOK.PasswordGenerator.Algorithms.Diceware.DicewareWordList.English)
+    .SetLength(5)
+    .SetWordList(DicewareWordList.English)
+    .SetSeparator(DicewareSeparator.Dash)
+    .SetCapitalization(DicewareCapitalization.TitleCase)
+    .SetSalt(DicewareSalt.Sprinkle)
     .GeneratePassword();
+```
+
+#### (Optional) Simple variant using default values
+If you wish to generate a diceware password using the default values, then you can directly call the GeneratePassword() method without setting any options:
+
+```csharp
+var passwordBuilder = new SpamOK.PasswordGenerator.DicewarePasswordBuilder();
+string password = passwordBuilder.GeneratePassword();
 ```
 
 ## Contributing
@@ -117,8 +130,6 @@ Credits belong to the following sources that are used in this project:
 - DE Diceware wordlist: https://github.com/dys2p/wordlists-de
 - FR Diceware wordlist: https://github.com/ArthurPons/diceware-fr-alt
 - ES Diceware wordlist: https://github.com/mir123/dadoware-bonito-es/blob/master/DW-es-bonito.csv
-- UK Diceware wordlist:
 - IT Diceware wordlist: https://www.taringamberini.com/downloads/diceware_it_IT/lista-di-parole-diceware-in-italiano/4/word_list_diceware_it-IT-4.txt
--
-
+- UK Diceware wordlist: ChatGPT 4
 
