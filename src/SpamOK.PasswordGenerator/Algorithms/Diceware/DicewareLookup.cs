@@ -33,21 +33,13 @@ namespace SpamOK.PasswordGenerator.Algorithms.Diceware
         /// </summary>
         /// <param name="diceIndex">5-dice concatenated int.</param>
         /// <returns>Word from diceware file.</returns>
-        /// <exception cref="FileLoadException">If index is higher than the amount of words the diceware language file contains.</exception>
         public string GetWordByDiceIndex(int diceIndex)
         {
             // Convert dice index from base-6 to base-10
             int index = ConvertBase6ToBase10(diceIndex.ToString()) - 1;
 
             // Check if index is within the bounds of the array
-            if (index >= 0 && index < _words.Length)
-            {
-                return _words[index];
-            }
-            else
-            {
-                throw new FileLoadException("Diceware language file does not contain entry for index " + index + ".");
-            }
+            return _words[index];
         }
 
         private void LoadWords(string resourceName)

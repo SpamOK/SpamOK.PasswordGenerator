@@ -134,8 +134,6 @@ namespace SpamOK.PasswordGenerator
         {
             switch (_salt)
             {
-                case DicewareSalt.None:
-                    return passphrase;
                 case DicewareSalt.Prefix:
                     return salt + passphrase;
                 case DicewareSalt.Sprinkle:
@@ -143,6 +141,7 @@ namespace SpamOK.PasswordGenerator
                     return passphrase.Insert(index, salt.ToString());
                 case DicewareSalt.Suffix:
                     return passphrase + salt;
+                case DicewareSalt.None:
                 default:
                     return passphrase;
             }

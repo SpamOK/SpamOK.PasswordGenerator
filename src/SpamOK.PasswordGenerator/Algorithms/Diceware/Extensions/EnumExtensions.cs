@@ -7,6 +7,7 @@
 
 namespace SpamOK.PasswordGenerator.Algorithms.Diceware.Extensions
 {
+    using System;
     using System.Reflection;
 
     /// <summary>
@@ -19,7 +20,7 @@ namespace SpamOK.PasswordGenerator.Algorithms.Diceware.Extensions
         /// </summary>
         /// <param name="value">DicewareWordList value.</param>
         /// <returns>ResourceName attribute.</returns>
-        public static string GetResourceName(this DicewareWordList value)
+        public static string GetResourceName(this Enum value)
         {
             // Retrieve the field info for the specific enum value
             FieldInfo field = value.GetType().GetField(value.ToString());
@@ -27,8 +28,13 @@ namespace SpamOK.PasswordGenerator.Algorithms.Diceware.Extensions
             // Get the FilenameAttribute on the enum field
             ResourceNameAttribute attribute = field.GetCustomAttribute<ResourceNameAttribute>();
 
+            if (attribute == null)
+            {
+                throw new ArgumentNullException(nameof(attribute));
+            }
+
             // Return the filename if the attribute is found, otherwise null
-            return attribute?.ResourceName;
+            return attribute.ResourceName;
         }
 
         /// <summary>
@@ -36,7 +42,7 @@ namespace SpamOK.PasswordGenerator.Algorithms.Diceware.Extensions
         /// </summary>
         /// <param name="value">DicewareWordList value.</param>
         /// <returns>ResourceName attribute.</returns>
-        public static char? GetSeparatorCharacter(this DicewareSeparator value)
+        public static char? GetSeparatorCharacter(this Enum value)
         {
             // Retrieve the field info for the specific enum value
             FieldInfo field = value.GetType().GetField(value.ToString());
@@ -44,8 +50,13 @@ namespace SpamOK.PasswordGenerator.Algorithms.Diceware.Extensions
             // Get the FilenameAttribute on the enum field
             SeparatorCharacterAttribute attribute = field.GetCustomAttribute<SeparatorCharacterAttribute>();
 
+            if (attribute == null)
+            {
+                throw new ArgumentNullException(nameof(attribute));
+            }
+
             // Return the filename if the attribute is found, otherwise null
-            return attribute?.SeparatorCharacter;
+            return attribute.SeparatorCharacter;
         }
     }
 }

@@ -33,8 +33,8 @@ namespace SpamOK.PasswordGenerator.Tests
         [Test]
         public void TestPasswordGenerationDefault()
         {
-            Assert.IsNotEmpty(_passwordBuilder
-                .GeneratePassword());
+            var password = _passwordBuilder.GeneratePassword();
+            Assert.That(password, Is.Not.Empty);
         }
 
         /// <summary>
