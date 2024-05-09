@@ -49,6 +49,15 @@ namespace SpamOK.PasswordGenerator.Tests
         }
 
         /// <summary>
+        /// Test that passing a null value to the hackerify method throws an exception.
+        /// </summary>
+        [Test]
+        public void TestHackerifyHelperNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => HackerifyHelper.ConvertToHackerify(null));
+        }
+
+        /// <summary>
         /// Test that hackerify helper method work as expected.
         /// </summary>
         [Test]
