@@ -1,6 +1,10 @@
 # SpamOK.PasswordGenerator
 [<img src="https://img.shields.io/github/v/release/SpamOK/SpamOK.PasswordGenerator?include_prereleases&logo=github">](https://github.com/SpamOK/SpamOK.PasswordGenerator/releases)  [<img src="https://img.shields.io/github/actions/workflow/status/SpamOK/SpamOK.PasswordGenerator/dotnet-build-run-tests.yml?label=tests">](https://github.com/SpamOK/SpamOK.PasswordGenerator/actions/workflows/dotnet-build-run-tests.yml)
 
+![Logo](https://github.com/SpamOK/SpamOK.PasswordGenerator/assets/6917405/0934ecbf-2c79-432c-bb72-53ad806e8ad4#gh-dark-mode-only)
+![Logo](https://github.com/SpamOK/SpamOK.PasswordGenerator/assets/6917405/4305b6d8-3078-4202-8e08-e6579237917e#gh-light-mode-only)
+
+
 ## Description
 
 SpamOK.PasswordGenerator is a .NET library designed to generate highly secure, customizable, random passwords. It helps developers ensure their applications adhere to best practices in password security, making it ideal for systems requiring high levels of data protection.
