@@ -112,12 +112,12 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 ## Credits
 Credits belong to the following sources that are used in this project:
 
-NL Diceware wordlist:
-```
-https://mko.re/diceware/diceware-wordlist-8k-composites-nl.txt
-```
+- NL Diceware wordlist: https://mko.re/diceware/diceware-wordlist-8k-composites-nl.txt
+- EN Diceware wordlist: https://theworld.com/~reinhold/diceware8k.txt
+- DE Diceware wordlist: https://github.com/dys2p/wordlists-de
+- FR Diceware wordlist: https://github.com/ArthurPons/diceware-fr-alt
+- ES Diceware wordlist: https://github.com/mir123/dadoware-bonito-es/blob/master/DW-es-bonito.csv
+- UK Diceware wordlist:
 
-EN Diceware wordlist:
-```
-https://theworld.com/~reinhold/diceware8k.txt
-```
+
+

@@ -62,6 +62,17 @@ namespace SpamOK.PasswordGenerator.Tests
         /// Test that generating a diceware password with the Dutch word list works.
         /// </summary>
         [Test]
+        public void TestPasswordGenerationGerman()
+        {
+            Assert.IsNotEmpty(_passwordBuilder
+                .SetWordList(DicewareWordList.German)
+                .GeneratePassword());
+        }
+
+        /// <summary>
+        /// Test that generating a diceware password with the Dutch word list works.
+        /// </summary>
+        [Test]
         public void TestPasswordGenerationSeparators()
         {
             var password = _passwordBuilder

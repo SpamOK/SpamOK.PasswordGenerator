@@ -23,5 +23,29 @@ namespace SpamOK.PasswordGenerator.Algorithms.Diceware
         /// </summary>
         [ResourceName("SpamOK.PasswordGenerator.Algorithms.Diceware.WordLists.nl.diceware")]
         Dutch,
+
+        /// <summary>
+        /// German word list.
+        /// </summary>
+        [ResourceName("SpamOK.PasswordGenerator.Algorithms.Diceware.WordLists.de.diceware")]
+        German,
+
+        /// <summary>
+        /// French word list.
+        /// </summary>
+        [ResourceName("SpamOK.PasswordGenerator.Algorithms.Diceware.WordLists.fr.diceware")]
+        French,
+
+        /// <summary>
+        /// Spanish word list.
+        /// </summary>
+        [ResourceName("SpamOK.PasswordGenerator.Algorithms.Diceware.WordLists.es.diceware")]
+        Spanish,
+
+        /// <summary>
+        /// Spanish word list.
+        /// </summary>
+        [ResourceName("SpamOK.PasswordGenerator.Algorithms.Diceware.WordLists.es.diceware")]
+        Spanish,
     }
 }
