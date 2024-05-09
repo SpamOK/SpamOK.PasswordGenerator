@@ -13,7 +13,7 @@ namespace SpamOK.PasswordGenerator.Helpers
     /// <summary>
     /// Helper class for hackerify-ing (converting) a string.
     /// </summary>
-    public class HackerifyHelper
+    public static class HackerifyHelper
     {
         // Dictionary to map characters to their l33t equivalents
         private static Dictionary<char, string> _leetDictionary = new Dictionary<char, string>
@@ -37,7 +37,9 @@ namespace SpamOK.PasswordGenerator.Helpers
         public static string ConvertToHackerify(string input)
         {
             if (input == null)
+            {
                 throw new ArgumentNullException(nameof(input));
+            }
 
             StringBuilder hackerified = new StringBuilder(input.Length);
 
