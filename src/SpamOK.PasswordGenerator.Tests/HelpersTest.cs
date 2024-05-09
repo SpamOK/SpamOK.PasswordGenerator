@@ -4,12 +4,9 @@
 // Licensed under the MIT license. See LICENSE.md file in the project root for full license information.
 // </copyright>
 //-----------------------------------------------------------------------
-
-using SpamOK.PasswordGenerator.Helpers;
-
 namespace SpamOK.PasswordGenerator.Tests
 {
-    using SpamOK.PasswordGenerator.Algorithms.Diceware.Extensions;
+    using SpamOK.PasswordGenerator.Helpers;
 
     /// <summary>
     /// Tests that cover helper methods.
