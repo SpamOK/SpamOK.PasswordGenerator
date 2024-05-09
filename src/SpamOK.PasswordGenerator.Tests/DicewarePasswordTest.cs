@@ -78,9 +78,11 @@ namespace SpamOK.PasswordGenerator.Tests
         [Test]
         public void TestPasswordGenerationEnglish()
         {
-            Assert.IsNotEmpty(_passwordBuilder
+            var password = _passwordBuilder
                 .SetWordList(DicewareWordList.English)
-                .GeneratePassword());
+                .GeneratePassword();
+
+            Assert.That(password, Is.Not.Empty);
         }
 
         /// <summary>
@@ -89,9 +91,11 @@ namespace SpamOK.PasswordGenerator.Tests
         [Test]
         public void TestPasswordGenerationDutch()
         {
-            Assert.IsNotEmpty(_passwordBuilder
+            var password = _passwordBuilder
                 .SetWordList(DicewareWordList.Dutch)
-                .GeneratePassword());
+                .GeneratePassword();
+
+            Assert.That(password, Is.Not.Empty);
         }
 
         /// <summary>
@@ -100,9 +104,11 @@ namespace SpamOK.PasswordGenerator.Tests
         [Test]
         public void TestPasswordGenerationGerman()
         {
-            Assert.IsNotEmpty(_passwordBuilder
+            var password = _passwordBuilder
                 .SetWordList(DicewareWordList.German)
-                .GeneratePassword());
+                .GeneratePassword();
+
+            Assert.That(password, Is.Not.Empty);
         }
 
         /// <summary>
@@ -111,9 +117,11 @@ namespace SpamOK.PasswordGenerator.Tests
         [Test]
         public void TestPasswordGenerationSpanish()
         {
-            Assert.IsNotEmpty(_passwordBuilder
+            var password = _passwordBuilder
                 .SetWordList(DicewareWordList.Spanish)
-                .GeneratePassword());
+                .GeneratePassword();
+
+            Assert.That(password, Is.Not.Empty);
         }
 
         /// <summary>
@@ -122,9 +130,11 @@ namespace SpamOK.PasswordGenerator.Tests
         [Test]
         public void TestPasswordGenerationFrench()
         {
-            Assert.IsNotEmpty(_passwordBuilder
+            var password = _passwordBuilder
                 .SetWordList(DicewareWordList.French)
-                .GeneratePassword());
+                .GeneratePassword();
+
+            Assert.That(password, Is.Not.Empty);
         }
 
         /// <summary>
@@ -133,9 +143,11 @@ namespace SpamOK.PasswordGenerator.Tests
         [Test]
         public void TestPasswordGenerationUkrainian()
         {
-            Assert.IsNotEmpty(_passwordBuilder
+            var password = _passwordBuilder
                 .SetWordList(DicewareWordList.Ukrainian)
-                .GeneratePassword());
+                .GeneratePassword();
+
+            Assert.That(password, Is.Not.Empty);
         }
 
         /// <summary>
@@ -144,9 +156,11 @@ namespace SpamOK.PasswordGenerator.Tests
         [Test]
         public void TestPasswordGenerationItalian()
         {
-            Assert.IsNotEmpty(_passwordBuilder
+            var password = _passwordBuilder
                 .SetWordList(DicewareWordList.Italian)
-                .GeneratePassword());
+                .GeneratePassword();
+
+            Assert.That(password, Is.Not.Empty);
         }
 
         /// <summary>
@@ -231,7 +245,7 @@ namespace SpamOK.PasswordGenerator.Tests
                 }
             }
 
-            Assert.IsTrue(foundCapitalLetter, "Expected at least one password with a capital letter out of multiple trials.");
+            Assert.That(foundCapitalLetter, Is.True, "Expected at least one password with a capital letter out of multiple trials.");
         }
 
         /// <summary>
@@ -240,24 +254,28 @@ namespace SpamOK.PasswordGenerator.Tests
         [Test]
         public void TestPasswordGenerationSaltMethod()
         {
-            // Not actually asserting anything here because of the random nature of the salt.
-            // Just testing that the method doesn't throw an exception.
+            // Assert that generating a password with salt does not throw an exception
+            // and that the password is not empty.
             // Internals are tested in TestPasswordGenerationSaltInternals().
-            _passwordBuilder
+            var password = _passwordBuilder
                 .SetSalt(DicewareSalt.None)
                 .GeneratePassword();
+            Assert.That(password, Is.Not.Empty);
 
-            _passwordBuilder
+            password = _passwordBuilder
                 .SetSalt(DicewareSalt.Prefix)
                 .GeneratePassword();
+            Assert.That(password, Is.Not.Empty);
 
-            _passwordBuilder
+            password = _passwordBuilder
                 .SetSalt(DicewareSalt.Sprinkle)
                 .GeneratePassword();
+            Assert.That(password, Is.Not.Empty);
 
-            _passwordBuilder
+            password = _passwordBuilder
                 .SetSalt(DicewareSalt.Suffix)
                 .GeneratePassword();
+            Assert.That(password, Is.Not.Empty);
         }
 
         /// <summary>

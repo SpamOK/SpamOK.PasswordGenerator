@@ -49,7 +49,7 @@ namespace SpamOK.PasswordGenerator.Tests
                 .EnableAllOptions()
                 .GeneratePassword();
 
-            Assert.IsNotEmpty(password);
+            Assert.That(password, Is.Not.Empty);
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace SpamOK.PasswordGenerator.Tests
                 .SetLength(12)
                 .GeneratePassword();
 
-            Assert.That(password.Length, Is.EqualTo(12));
+            Assert.That(password, Has.Length.EqualTo(12));
         }
 
         /// <summary>

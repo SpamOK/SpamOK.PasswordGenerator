@@ -28,8 +28,6 @@ namespace SpamOK.PasswordGenerator
         private DicewareCapitalization _capitalization = DicewareCapitalization.None;
         private DicewareSalt _salt = DicewareSalt.None;
 
-        // private DicewareSeparator _separator;
-
         /// <summary>
         /// Configure the word list to use.
         /// </summary>
@@ -170,13 +168,9 @@ namespace SpamOK.PasswordGenerator
                     char[] chars = word.ToCharArray();
                     for (int i = 0; i < chars.Length; i++)
                     {
-                        if (char.IsLetter(chars[i]))
+                        if (char.IsLetter(chars[i]) && RandomHelper.GenerateRandomBoolean(50))
                         {
-                            // Randomly capitalize the letter 50% of the time.
-                            if (RandomHelper.GenerateRandomBoolean(50))
-                            {
-                                chars[i] = char.ToUpper(chars[i]);
-                            }
+                            chars[i] = char.ToUpper(chars[i]);
                         }
                     }
 

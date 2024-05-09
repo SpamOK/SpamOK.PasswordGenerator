@@ -33,7 +33,7 @@ namespace SpamOK.PasswordGenerator.Algorithms.Diceware
         /// </summary>
         /// <param name="diceIndex">5-dice concatenated int.</param>
         /// <returns>Word from diceware file.</returns>
-        /// <exception cref="IndexOutOfRangeException">If index is higher than the diceware file contains.</exception>
+        /// <exception cref="FileLoadException">If index is higher than the amount of words the diceware language file contains.</exception>
         public string GetWordByDiceIndex(int diceIndex)
         {
             // Convert dice index from base-6 to base-10
@@ -46,7 +46,7 @@ namespace SpamOK.PasswordGenerator.Algorithms.Diceware
             }
             else
             {
-                throw new IndexOutOfRangeException("Dice index is out of range.");
+                throw new FileLoadException("Diceware language file does not contain entry for index " + index + ".");
             }
         }
 
