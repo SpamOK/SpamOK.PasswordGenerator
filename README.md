@@ -1,16 +1,16 @@
-# SpamOK.PasswordGenerator
+<p align="center">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://github.com/SpamOK/SpamOK.PasswordGenerator/assets/6917405/2e49a46f-5e53-4e7a-988b-94156bd83d15">
+      <source media="(prefers-color-scheme: light)" srcset="https://github.com/SpamOK/SpamOK.PasswordGenerator/assets/6917405/300e3ad2-4217-4479-8609-4d56733cf8ab">
+      <img width="600px" alt="Logo" src="https://github.com/SpamOK/SpamOK.PasswordGenerator/assets/6917405/300e3ad2-4217-4479-8609-4d56733cf8ab">
+    </picture>
+</p>
+
+<div align="center">
+    
 [<img src="https://img.shields.io/github/v/release/SpamOK/SpamOK.PasswordGenerator?include_prereleases&logo=github">](https://github.com/SpamOK/SpamOK.PasswordGenerator/releases)  [<img src="https://img.shields.io/github/actions/workflow/status/SpamOK/SpamOK.PasswordGenerator/dotnet-build-run-tests.yml?label=tests">](https://github.com/SpamOK/SpamOK.PasswordGenerator/actions/workflows/dotnet-build-run-tests.yml)
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/SpamOK/SpamOK.PasswordGenerator/assets/6917405/7e843054-c5a8-4b1e-8e7f-59dd1e6311ec">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/SpamOK/SpamOK.PasswordGenerator/assets/6917405/300e3ad2-4217-4479-8609-4d56733cf8ab">
-</picture>
-
-![passwordgenerator-white](https://github.com/SpamOK/SpamOK.PasswordGenerator/assets/6917405/7e843054-c5a8-4b1e-8e7f-59dd1e6311ec)
-![passwordgenerator-black](https://github.com/SpamOK/SpamOK.PasswordGenerator/assets/6917405/300e3ad2-4217-4479-8609-4d56733cf8ab)
-
-
-## Description
+</div>
 
 SpamOK.PasswordGenerator is a .NET library designed to generate highly secure, customizable, random passwords. It helps developers ensure their applications adhere to best practices in password security, making it ideal for systems requiring high levels of data protection.
 
