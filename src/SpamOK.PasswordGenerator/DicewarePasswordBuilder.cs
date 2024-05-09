@@ -85,11 +85,11 @@ namespace SpamOK.PasswordGenerator
         }
 
         /// <summary>
-        /// Enable or disable hackerify mode which converts the passphrase to leetspeak.
+        /// Enable or disable hackerify mode which converts the password string to leetspeak.
         /// </summary>
         /// <param name="value">TRUE to enable, FALSE to disable. Defaults to FALSE.</param>
         /// <returns>Updated DicewarePasswordBuilder instance.</returns>
-        public DicewarePasswordBuilder SetHackerifyMode(bool value)
+        public DicewarePasswordBuilder HackerifyPassword(bool value)
         {
             _hackerify = value;
             return this;

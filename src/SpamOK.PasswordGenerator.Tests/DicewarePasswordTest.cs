@@ -335,7 +335,7 @@ namespace SpamOK.PasswordGenerator.Tests
             for (int i = 0; i < 100; i++)
             {
                 var password = _passwordBuilder
-                    .SetHackerifyMode(true)
+                    .HackerifyPassword(true)
                     .GeneratePassword();
 
                 // Test that the password contains no characters that should have
