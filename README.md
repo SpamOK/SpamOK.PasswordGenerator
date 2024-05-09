@@ -16,7 +16,7 @@
 
 <p>&nbsp;</p>
 
-**SpamOK.PasswordGenerator** is a .NET library designed to generate highly secure, customizable, random passwords. It helps developers ensure their applications adhere to best practices in password security, making it ideal for systems requiring high levels of data protection.
+**SpamOK.PasswordGenerator** is an open-source .NET library designed to generate highly secure, customizable and random passwords. It helps developers ensure their applications adhere to best practices in password security.
 
 The library supports two password generation methods: basic password generation and [Diceware](https://theworld.com/~reinhold/diceware.html) passphrase generation. The basic password generation method allows you to generate passwords with a configurable length and includes options for numbers, special characters, and uppercase/lowercase differentiation. The Diceware passphrase generation method generates passwords using a list of words from a wordlist, with options for word capitalization, word separation, and salt addition.
 
