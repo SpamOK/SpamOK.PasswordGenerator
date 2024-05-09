@@ -38,6 +38,41 @@ namespace SpamOK.PasswordGenerator.Tests
         }
 
         /// <summary>
+        /// Test that generating a diceware password with setting the length works.
+        /// </summary>
+        [Test]
+        public void TestPasswordGenerationLength()
+        {
+            var password = _passwordBuilder
+                .SetSeparator(DicewareSeparator.Space)
+                .SetLength(1)
+                .GeneratePassword();
+
+            Assert.That(password, Does.Not.Contain(' '));
+
+            password = _passwordBuilder
+                .SetSeparator(DicewareSeparator.Space)
+                .SetLength(3)
+                .GeneratePassword();
+
+            Assert.That(password.Split(' ').Count, Is.EqualTo(3));
+
+            password = _passwordBuilder
+                .SetSeparator(DicewareSeparator.Space)
+                .SetLength(10)
+                .GeneratePassword();
+
+            Assert.That(password.Split(' ').Count, Is.EqualTo(10));
+
+            password = _passwordBuilder
+                .SetSeparator(DicewareSeparator.Space)
+                .SetLength(30)
+                .GeneratePassword();
+
+            Assert.That(password.Split(' ').Count, Is.EqualTo(30));
+        }
+
+        /// <summary>
         /// Test that generating a diceware password with the English word list works.
         /// </summary>
         [Test]
@@ -115,7 +150,7 @@ namespace SpamOK.PasswordGenerator.Tests
         }
 
         /// <summary>
-        /// Test that generating a diceware password with the Dutch word list works.
+        /// Test that generating a diceware password with configured separators works.
         /// </summary>
         [Test]
         public void TestPasswordGenerationSeparators()

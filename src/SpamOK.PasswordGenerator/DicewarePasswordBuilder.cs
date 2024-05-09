@@ -21,7 +21,7 @@ namespace SpamOK.PasswordGenerator
     /// </summary>
     public class DicewarePasswordBuilder
     {
-        private int _count = 5;
+        private int _length = 5;
         private DicewareWordList _wordList = DicewareWordList.English;
         private DicewareSeparator _separator = DicewareSeparator.Dash;
         private DicewareCapitalization _capitalization = DicewareCapitalization.None;
@@ -37,6 +37,17 @@ namespace SpamOK.PasswordGenerator
         public DicewarePasswordBuilder SetWordList(DicewareWordList wordList)
         {
             _wordList = wordList;
+            return this;
+        }
+
+        /// <summary>
+        /// Configure the amount of words in the diceware passphrase.
+        /// </summary>
+        /// <param name="wordCount">The amount of words. Defaults to 5.</param>
+        /// <returns>Updated DicewarePasswordBuilder instance.</returns>
+        public DicewarePasswordBuilder SetLength(int wordCount)
+        {
+            _length = wordCount;
             return this;
         }
 
@@ -79,10 +90,10 @@ namespace SpamOK.PasswordGenerator
         /// <returns>Generated password.</returns>
         public string GeneratePassword()
         {
-            string[] words = new string[_count];
+            string[] words = new string[_length];
 
             // Get a diceware word for each word in the password.
-            for (int i = 0; i < _count; i++)
+            for (int i = 0; i < _length; i++)
             {
                 // Generate a random diceware index by rolling 5 dices and concatenating the result numbers.
                 var dicewareIndex = GenerateRandomDicewareIndex();
