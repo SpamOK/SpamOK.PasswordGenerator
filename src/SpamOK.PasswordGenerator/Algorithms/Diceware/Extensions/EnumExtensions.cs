@@ -30,7 +30,7 @@ namespace SpamOK.PasswordGenerator.Algorithms.Diceware.Extensions
 
             if (attribute == null)
             {
-                throw new ArgumentNullException(nameof(attribute));
+                throw new ArgumentNullException(nameof(value));
             }
 
             // Return the filename if the attribute is found, otherwise null
@@ -52,7 +52,7 @@ namespace SpamOK.PasswordGenerator.Algorithms.Diceware.Extensions
 
             if (attribute == null)
             {
-                throw new ArgumentNullException(nameof(attribute));
+                throw new ArgumentNullException(nameof(value));
             }
 
             // Return the filename if the attribute is found, otherwise null

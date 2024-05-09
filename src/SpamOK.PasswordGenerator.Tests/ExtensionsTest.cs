@@ -38,8 +38,11 @@ namespace SpamOK.PasswordGenerator.Tests
         public void TestEnumExtensionAttributeValid()
         {
             // Test that calling extension methods on an enum value with attributes works.
-            Assert.That(TestEnum.WithAttributes.GetSeparatorCharacter(), Is.EqualTo('\0'));
-            Assert.That(TestEnum.WithAttributes.GetResourceName(), Is.EqualTo("SpamOK.PasswordGenerator.Algorithms.Diceware.WordLists.en.diceware"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(TestEnum.WithAttributes.GetSeparatorCharacter(), Is.EqualTo('\0'));
+                Assert.That(TestEnum.WithAttributes.GetResourceName(), Is.EqualTo("SpamOK.PasswordGenerator.Algorithms.Diceware.WordLists.en.diceware"));
+            });
         }
 
         /// <summary>
@@ -49,8 +52,11 @@ namespace SpamOK.PasswordGenerator.Tests
         public void TestEnumExtensionAttributeMissingException()
         {
             // Test that calling extension methods on an enum value without attributes throws an exception.
-            Assert.Throws<ArgumentNullException>(() => TestEnum.WithoutAttributes.GetSeparatorCharacter());
-            Assert.Throws<ArgumentNullException>(() => TestEnum.WithoutAttributes.GetResourceName());
+            Assert.Multiple(() =>
+            {
+                Assert.Throws<ArgumentNullException>(() => TestEnum.WithoutAttributes.GetSeparatorCharacter());
+                Assert.Throws<ArgumentNullException>(() => TestEnum.WithoutAttributes.GetResourceName());
+            });
         }
     }
 }
