@@ -6,6 +6,7 @@
 //-----------------------------------------------------------------------
 
 using System.Runtime.CompilerServices;
+using SpamOK.PasswordGenerator.Helpers;
 
 [assembly: InternalsVisibleTo("SpamOK.PasswordGenerator.Tests")]
 
@@ -119,7 +120,7 @@ namespace SpamOK.PasswordGenerator
             string passphrase = string.Join(_separator.GetSeparatorCharacter().ToString(), words);
 
             // Add salt to the passphrase based on the configured salt option.
-            var salt = (char)new Random().Next(33, 127);
+            var salt = RandomHelper.GenerateRandomAlphanumericCharacter();
             passphrase = AddSalt(salt, passphrase);
 
             return passphrase;
@@ -140,7 +141,7 @@ namespace SpamOK.PasswordGenerator
                 case DicewareSalt.Prefix:
                     return salt + passphrase;
                 case DicewareSalt.Sprinkle:
-                    int index = new Random().Next(0, passphrase.Length);
+                    int index = RandomHelper.GenerateRandomNumberBetween(0, passphrase.Length);
                     return passphrase.Insert(index, salt.ToString());
                 case DicewareSalt.Suffix:
                     return passphrase + salt;
@@ -171,8 +172,8 @@ namespace SpamOK.PasswordGenerator
                     {
                         if (char.IsLetter(chars[i]))
                         {
-                            // Randomly choose to capitalize the letter.
-                            if (new Random().Next(2) == 0)
+                            // Randomly capitalize the letter 50% of the time.
+                            if (RandomHelper.GenerateRandomBoolean(50))
                             {
                                 chars[i] = char.ToUpper(chars[i]);
                             }
