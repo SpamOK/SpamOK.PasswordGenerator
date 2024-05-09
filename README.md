@@ -1,8 +1,14 @@
 # SpamOK.PasswordGenerator
 [<img src="https://img.shields.io/github/v/release/SpamOK/SpamOK.PasswordGenerator?include_prereleases&logo=github">](https://github.com/SpamOK/SpamOK.PasswordGenerator/releases)  [<img src="https://img.shields.io/github/actions/workflow/status/SpamOK/SpamOK.PasswordGenerator/dotnet-build-run-tests.yml?label=tests">](https://github.com/SpamOK/SpamOK.PasswordGenerator/actions/workflows/dotnet-build-run-tests.yml)
 
-![Logo](https://github.com/SpamOK/SpamOK.PasswordGenerator/assets/6917405/0934ecbf-2c79-432c-bb72-53ad806e8ad4.png#gh-dark-mode-only)
-![Logo](https://github.com/SpamOK/SpamOK.PasswordGenerator/assets/6917405/4305b6d8-3078-4202-8e08-e6579237917e.png#gh-light-mode-only)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/SpamOK/SpamOK.PasswordGenerator/assets/6917405/7e843054-c5a8-4b1e-8e7f-59dd1e6311ec">
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/SpamOK/SpamOK.PasswordGenerator/assets/6917405/300e3ad2-4217-4479-8609-4d56733cf8ab">
+</picture>
+
+![passwordgenerator-white](https://github.com/SpamOK/SpamOK.PasswordGenerator/assets/6917405/7e843054-c5a8-4b1e-8e7f-59dd1e6311ec)
+![passwordgenerator-black](https://github.com/SpamOK/SpamOK.PasswordGenerator/assets/6917405/300e3ad2-4217-4479-8609-4d56733cf8ab)
+
 
 ## Description
 
