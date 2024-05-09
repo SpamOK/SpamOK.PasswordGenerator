@@ -9,7 +9,7 @@
 </p>
 
 <div align="center">
-    
+
 [<img src="https://img.shields.io/github/v/release/SpamOK/SpamOK.PasswordGenerator?include_prereleases&logo=github">](https://www.nuget.org/packages/SpamOK.PasswordGenerator)  [<img src="https://img.shields.io/github/actions/workflow/status/SpamOK/SpamOK.PasswordGenerator/dotnet-build-run-tests.yml?label=tests">](https://github.com/SpamOK/SpamOK.PasswordGenerator/actions/workflows/dotnet-build-run-tests.yml) [<img src="https://img.shields.io/sonar/coverage/SpamOK_SpamOK.PasswordGenerator?server=https%3A%2F%2Fsonarcloud.io&label=test code coverage">](https://sonarcloud.io/summary/new_code?id=SpamOK_SpamOK.PasswordGenerator) [<img src="https://img.shields.io/sonar/quality_gate/SpamOK_SpamOK.PasswordGenerator?server=https%3A%2F%2Fsonarcloud.io&label=sonarcloud quality gate&logo=sonarcloud">](https://sonarcloud.io/summary/new_code?id=SpamOK_SpamOK.PasswordGenerator) [<img src="https://img.shields.io/nuget/dt/SpamOK.PasswordGenerator?label=nuget downloads&logo=nuget">](https://www.nuget.org/packages/SpamOK.PasswordGenerator)
 
 </div>
@@ -103,6 +103,7 @@ string password = passwordBuilder
     .SetSeparator(DicewareSeparator.Dash)
     .SetCapitalization(DicewareCapitalization.TitleCase)
     .SetSalt(DicewareSalt.Sprinkle)
+    .HackerifyPassword(false)
     .GeneratePassword();
 ```
 
