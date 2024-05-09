@@ -312,9 +312,18 @@ namespace SpamOK.PasswordGenerator.Tests
         [Test]
         public void TestPasswordGenerationNonExistingWordList()
         {
-            // Assert that trying to load a non-existing word list throws an exception.
             DicewareLookup lookup = new DicewareLookup(DicewareWordList.English);
             Assert.Throws<FileNotFoundException>(() => lookup.LoadWords("unknown-wordlist"));
+        }
+
+        /// <summary>
+        /// Test that trying to load a word list with incorrect structure throws an exception.
+        /// </summary>
+        [Test]
+        public void TestPasswordGenerationIncorrectStructureWordList()
+        {
+            DicewareLookup lookup = new DicewareLookup(DicewareWordList.English);
+            Assert.Throws<InvalidDataException>(() => lookup.LoadWords("SpamOK.PasswordGenerator.Algorithms.Diceware.WordLists.TestAssets.error.diceware"));
         }
     }
 }
