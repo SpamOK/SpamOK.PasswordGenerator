@@ -5,7 +5,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace SpamOK.PasswordGenerator.Algorithms.Diceware
+namespace SpamOK.PasswordGenerator.Algorithms.Diceware.Extensions
 {
     using System;
 

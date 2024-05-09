@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-// <copyright file="DicewareSeparator.cs" company="SpamOK">
+// <copyright file="DicewareCapitalization.cs" company="SpamOK">
 // Copyright (c) SpamOK. All rights reserved.
 // Licensed under the MIT license. See LICENSE.md file in the project root for full license information.
 // </copyright>
@@ -7,41 +7,34 @@
 
 namespace SpamOK.PasswordGenerator.Algorithms.Diceware
 {
-    using SpamOK.PasswordGenerator.Algorithms.Diceware.Extensions;
-
     /// <summary>
     /// Separator for Diceware passwords.
     /// </summary>
-    public enum DicewareSeparator
+    public enum DicewareCapitalization
     {
         /// <summary>
-        /// No separator.
+        /// No capitalization.
         /// </summary>
-        [SeparatorCharacter('\0')]
         None,
 
         /// <summary>
-        /// A dash separator.
+        /// Make the first letter of each word uppercase.
         /// </summary>
-        [SeparatorCharacter('-')]
-        Dash,
+        TitleCase,
 
         /// <summary>
-        /// Space separator.
+        /// Make all letters uppercase.
         /// </summary>
-        [SeparatorCharacter(' ')]
-        Space,
+        Uppercase,
 
         /// <summary>
-        /// Underscore separator.
+        /// Make all letters lowercase.
         /// </summary>
-        [SeparatorCharacter('_')]
-        Underscore,
+        Lowercase,
 
         /// <summary>
-        /// Dot separator.
+        /// Randomize the capitalization of each letter.
         /// </summary>
-        [SeparatorCharacter('.')]
-        Dot,
+        Random,
     }
 }

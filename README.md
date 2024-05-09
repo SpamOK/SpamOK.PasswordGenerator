@@ -118,6 +118,7 @@ Credits belong to the following sources that are used in this project:
 - FR Diceware wordlist: https://github.com/ArthurPons/diceware-fr-alt
 - ES Diceware wordlist: https://github.com/mir123/dadoware-bonito-es/blob/master/DW-es-bonito.csv
 - UK Diceware wordlist:
-
+- IT Diceware wordlist: https://www.taringamberini.com/downloads/diceware_it_IT/lista-di-parole-diceware-in-italiano/4/word_list_diceware_it-IT-4.txt
+-
 
 

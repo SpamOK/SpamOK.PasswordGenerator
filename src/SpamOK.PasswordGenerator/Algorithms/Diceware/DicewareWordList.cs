@@ -7,6 +7,8 @@
 
 namespace SpamOK.PasswordGenerator.Algorithms.Diceware
 {
+    using SpamOK.PasswordGenerator.Algorithms.Diceware.Extensions;
+
     /// <summary>
     /// Diceware word lists that can be used.
     /// </summary>
@@ -43,9 +45,15 @@ namespace SpamOK.PasswordGenerator.Algorithms.Diceware
         Spanish,
 
         /// <summary>
-        /// Spanish word list.
+        /// Ukrainian word list.
         /// </summary>
-        [ResourceName("SpamOK.PasswordGenerator.Algorithms.Diceware.WordLists.es.diceware")]
-        Spanish,
+        [ResourceName("SpamOK.PasswordGenerator.Algorithms.Diceware.WordLists.uk.diceware")]
+        Ukrainian,
+
+        /// <summary>
+        /// Italian word list.
+        /// </summary>
+        [ResourceName("SpamOK.PasswordGenerator.Algorithms.Diceware.WordLists.it.diceware")]
+        Italian,
     }
 }

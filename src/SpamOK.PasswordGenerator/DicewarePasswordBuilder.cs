@@ -5,11 +5,16 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("SpamOK.PasswordGenerator.Tests")]
+
 namespace SpamOK.PasswordGenerator
 {
     using System;
     using System.Security.Cryptography;
     using SpamOK.PasswordGenerator.Algorithms.Diceware;
+    using SpamOK.PasswordGenerator.Algorithms.Diceware.Extensions;
 
     /// <summary>
     /// Diceware password generation algorithm.
@@ -19,6 +24,8 @@ namespace SpamOK.PasswordGenerator
         private int _count = 5;
         private DicewareWordList _wordList = DicewareWordList.English;
         private DicewareSeparator _separator = DicewareSeparator.Dash;
+        private DicewareCapitalization _capitalization = DicewareCapitalization.None;
+        private DicewareSalt _salt = DicewareSalt.None;
 
         // private DicewareSeparator _separator;
 
@@ -45,6 +52,28 @@ namespace SpamOK.PasswordGenerator
         }
 
         /// <summary>
+        /// Configure the capitalization to use.
+        /// </summary>
+        /// <param name="capitalization">The capitalization type to use. Defaults to DicewareCapitalization.None.</param>
+        /// <returns>Updated DicewarePasswordBuilder instance.</returns>
+        public DicewarePasswordBuilder SetCapitalization(DicewareCapitalization capitalization)
+        {
+            _capitalization = capitalization;
+            return this;
+        }
+
+        /// <summary>
+        /// Configure the salt to use.
+        /// </summary>
+        /// <param name="salt">The salt type to use. Defaults to Salt.None.</param>
+        /// <returns>Updated DicewarePasswordBuilder instance.</returns>
+        public DicewarePasswordBuilder SetSalt(DicewareSalt salt)
+        {
+            _salt = salt;
+            return this;
+        }
+
+        /// <summary>
         /// Generate a new password based on the configured settings.
         /// </summary>
         /// <returns>Generated password.</returns>
@@ -59,15 +88,16 @@ namespace SpamOK.PasswordGenerator
                 var dicewareIndex = GenerateRandomDicewareIndex();
 
                 // Get the word from the word list corresponding to the index.
-                // Assuming the file is at "C:/path/to/words.txt"
                 DicewareLookup lookup = new DicewareLookup(_wordList);
 
-                // Example: Retrieve the word for dice index "11111"
                 try
                 {
                     string word = lookup.GetWordByDiceIndex(dicewareIndex);
+
+                    // Capitalize the word based on the configured capitalization.
+                    word = CapitalizeWord(word);
+
                     words[i] = word;
-                    Console.WriteLine(word);  // Outputs the first word in the file
                 }
                 catch (Exception ex)
                 {
@@ -75,7 +105,73 @@ namespace SpamOK.PasswordGenerator
                 }
             }
 
-            return string.Join(_separator.GetSeparatorCharacter().ToString(), words);
+            string passphrase = string.Join(_separator.GetSeparatorCharacter().ToString(), words);
+
+            // Add salt to the passphrase based on the configured salt option.
+            var salt = (char)new Random().Next(33, 127);
+            passphrase = AddSalt(salt, passphrase);
+
+            return passphrase;
+        }
+
+        /// <summary>
+        /// Adds a salt to the passphrase based on the configured salt option.
+        /// </summary>
+        /// <param name="salt">The character that acts as the salt.</param>
+        /// <param name="passphrase">The passphrase to add the salt to.</param>
+        /// <returns>Passphrase with salt included.</returns>
+        internal string AddSalt(char salt, string passphrase)
+        {
+            switch (_salt)
+            {
+                case DicewareSalt.None:
+                    return passphrase;
+                case DicewareSalt.Prefix:
+                    return salt + passphrase;
+                case DicewareSalt.Sprinkle:
+                    int index = new Random().Next(0, passphrase.Length);
+                    return passphrase.Insert(index, salt.ToString());
+                case DicewareSalt.Suffix:
+                    return passphrase + salt;
+                default:
+                    return passphrase;
+            }
+        }
+
+        /// <summary>
+        /// Capitalize a word based on the configured capitalization.
+        /// </summary>
+        /// <param name="word">The word to capitalize.</param>
+        /// <returns>Capitalized word.</returns>
+        private string CapitalizeWord(string word)
+        {
+            switch (_capitalization)
+            {
+                case DicewareCapitalization.TitleCase:
+                    return char.ToUpper(word[0]) + word.Substring(1).ToLower();
+                case DicewareCapitalization.Uppercase:
+                    return word.ToUpper();
+                case DicewareCapitalization.Lowercase:
+                    return word.ToLower();
+                case DicewareCapitalization.Random:
+                    // Randomize the capitalization of each letter.
+                    char[] chars = word.ToCharArray();
+                    for (int i = 0; i < chars.Length; i++)
+                    {
+                        if (char.IsLetter(chars[i]))
+                        {
+                            // Randomly choose to capitalize the letter.
+                            if (new Random().Next(2) == 0)
+                            {
+                                chars[i] = char.ToUpper(chars[i]);
+                            }
+                        }
+                    }
+
+                    return new string(chars);
+                default:
+                    return word;
+            }
         }
 
         /// <summary>

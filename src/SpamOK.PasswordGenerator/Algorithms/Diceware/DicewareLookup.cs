@@ -10,6 +10,7 @@ namespace SpamOK.PasswordGenerator.Algorithms.Diceware
     using System;
     using System.IO;
     using System.Reflection;
+    using SpamOK.PasswordGenerator.Algorithms.Diceware.Extensions;
 
     /// <summary>
     /// Lookup class for diceware words.
@@ -65,11 +66,17 @@ namespace SpamOK.PasswordGenerator.Algorithms.Diceware
 
                 using (var reader = new StreamReader(stream))
                 {
-                    var words = new string[8192];
+                    var words = new string[7776];
                     while (!reader.EndOfStream)
                     {
                         words[i] = reader.ReadLine();
                         i++;
+                    }
+
+                    // Check if the file contains exactly 7776 words, if not, throw an exception.
+                    if (i != 7776)
+                    {
+                        throw new InvalidDataException("Diceware file does not contain exactly 7776 words.");
                     }
 
                     _words = words;
