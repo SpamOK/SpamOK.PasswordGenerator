@@ -58,9 +58,9 @@ namespace SpamOK.PasswordGenerator.Models
         /// Get average time to crack the password in seconds.
         /// </summary>
         /// <returns>Time to crack password in seconds as integer.</returns>
-        public long GetTimeToCrackSeconds()
+        public double GetTimeToCrackSeconds()
         {
-            return EntropyCalculatorHelper.GetTimeToCrack(BitEntropy);
+            return EntropyCalculatorHelper.GetTimeToCrackSeconds(BitEntropy);
         }
     }
 }
