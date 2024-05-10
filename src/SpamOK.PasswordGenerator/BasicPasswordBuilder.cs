@@ -4,14 +4,14 @@
 // Licensed under the MIT license. See LICENSE.md file in the project root for full license information.
 // </copyright>
 //-----------------------------------------------------------------------
-
 namespace SpamOK.PasswordGenerator
 {
     using System;
     using System.Linq;
-    using System.Security.Cryptography;
     using System.Text;
+    using SpamOK.PasswordGenerator.Helpers;
     using SpamOK.PasswordGenerator.Interfaces;
+    using SpamOK.PasswordGenerator.Models;
 
     /// <summary>
     /// Basic password generation algorithm.
@@ -131,7 +131,45 @@ namespace SpamOK.PasswordGenerator
         /// </summary>
         /// <returns>Generated password.</returns>
         /// <exception cref="InvalidOperationException">Thrown if no charsets have been enabled.</exception>
-        public string GeneratePassword()
+        public Password GeneratePassword()
+        {
+            var charSet = GetCharSet();
+
+            if (charSet.Length == 0)
+            {
+                throw new InvalidOperationException("Cannot generate password: no characters to choose from. Please enable at least one character set in the PasswordBuilder options, e.g. UseLowercaseLetters(true).");
+            }
+
+            var password = GenerateRandomPassword(_length, charSet.ToString());
+
+            var possibleSymbolsCount = GetPossibleSymbolsCount();
+            var entropy = EntropyCalculatorHelper.CalculateStringEntropy(password, possibleSymbolsCount);
+            return new Password(password, entropy);
+        }
+
+        /// <summary>
+        /// Generate a random password based on the specified length and character set.
+        /// </summary>
+        /// <param name="length">Desired length of the password.</param>
+        /// <param name="charSet">Allowed characters to use in the password.</param>
+        /// <returns>Generated password.</returns>
+        private static string GenerateRandomPassword(int length, string charSet)
+        {
+            byte[] randomBytes = RandomHelper.GenerateRandomBytes(length);
+            char[] chars = new char[length];
+            for (int i = 0; i < length; i++)
+            {
+                chars[i] = charSet[randomBytes[i] % charSet.Length];
+            }
+
+            return new string(chars);
+        }
+
+        /// <summary>
+        /// Get the character set based on the current configuration.
+        /// </summary>
+        /// <returns>Character set based on the current configuration.</returns>
+        private StringBuilder GetCharSet()
         {
             const string lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
             const string uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -171,35 +209,18 @@ namespace SpamOK.PasswordGenerator
                 charSet = charSet.Replace(c.ToString(), string.Empty);
             }
 
-            if (charSet.Length == 0)
-            {
-                throw new InvalidOperationException("No characters to choose from. Please enable at least one character set in the PasswordBuilder options, e.g. UseLowercaseLetters(true).");
-            }
-
-            return GenerateRandomPassword(_length, charSet.ToString());
+            return charSet;
         }
 
         /// <summary>
-        /// Generate a random password based on the specified length and character set.
+        /// Get the number of possible symbols based on the current configuration. This is used to calculate the
+        /// bit entropy of the password.
         /// </summary>
-        /// <param name="length">Desired length of the password.</param>
-        /// <param name="charSet">Allowed characters to use in the password.</param>
-        /// <returns>Generated password.</returns>
-        private static string GenerateRandomPassword(int length, string charSet)
+        /// <returns>Number of possible symbols based on current password builder configuration.</returns>
+        private int GetPossibleSymbolsCount()
         {
-            byte[] randomBytes = new byte[length];
-            using (var rng = new RNGCryptoServiceProvider())
-            {
-                rng.GetBytes(randomBytes);
-            }
-
-            char[] chars = new char[length];
-            for (int i = 0; i < length; i++)
-            {
-                chars[i] = charSet[randomBytes[i] % charSet.Length];
-            }
-
-            return new string(chars);
+            var charSet = GetCharSet();
+            return charSet.Length;
         }
 
         /// <summary>

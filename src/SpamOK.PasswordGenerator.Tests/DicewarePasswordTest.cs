@@ -33,7 +33,7 @@ namespace SpamOK.PasswordGenerator.Tests
         [Test]
         public void TestPasswordGenerationDefault()
         {
-            var password = _passwordBuilder.GeneratePassword();
+            var password = _passwordBuilder.GeneratePassword().ToString();
             Assert.That(password, Is.Not.Empty);
         }
 
@@ -46,28 +46,32 @@ namespace SpamOK.PasswordGenerator.Tests
             var password = _passwordBuilder
                 .SetSeparator(DicewareSeparator.Space)
                 .SetLength(1)
-                .GeneratePassword();
+                .GeneratePassword()
+                .ToString();
 
             Assert.That(password, Does.Not.Contain(' '));
 
             password = _passwordBuilder
                 .SetSeparator(DicewareSeparator.Space)
                 .SetLength(3)
-                .GeneratePassword();
+                .GeneratePassword()
+                .ToString();
 
             Assert.That(password.Split(' ').Count, Is.EqualTo(3));
 
             password = _passwordBuilder
                 .SetSeparator(DicewareSeparator.Space)
                 .SetLength(10)
-                .GeneratePassword();
+                .GeneratePassword()
+                .ToString();
 
             Assert.That(password.Split(' ').Count, Is.EqualTo(10));
 
             password = _passwordBuilder
                 .SetSeparator(DicewareSeparator.Space)
                 .SetLength(30)
-                .GeneratePassword();
+                .GeneratePassword()
+                .ToString();
 
             Assert.That(password.Split(' ').Count, Is.EqualTo(30));
         }
@@ -80,7 +84,8 @@ namespace SpamOK.PasswordGenerator.Tests
         {
             var password = _passwordBuilder
                 .SetWordList(DicewareWordList.English)
-                .GeneratePassword();
+                .GeneratePassword()
+                .ToString();
 
             Assert.That(password, Is.Not.Empty);
         }
@@ -93,7 +98,8 @@ namespace SpamOK.PasswordGenerator.Tests
         {
             var password = _passwordBuilder
                 .SetWordList(DicewareWordList.Dutch)
-                .GeneratePassword();
+                .GeneratePassword()
+                .ToString();
 
             Assert.That(password, Is.Not.Empty);
         }
@@ -106,7 +112,8 @@ namespace SpamOK.PasswordGenerator.Tests
         {
             var password = _passwordBuilder
                 .SetWordList(DicewareWordList.German)
-                .GeneratePassword();
+                .GeneratePassword()
+                .ToString();
 
             Assert.That(password, Is.Not.Empty);
         }
@@ -119,7 +126,8 @@ namespace SpamOK.PasswordGenerator.Tests
         {
             var password = _passwordBuilder
                 .SetWordList(DicewareWordList.Spanish)
-                .GeneratePassword();
+                .GeneratePassword()
+                .ToString();
 
             Assert.That(password, Is.Not.Empty);
         }
@@ -132,7 +140,8 @@ namespace SpamOK.PasswordGenerator.Tests
         {
             var password = _passwordBuilder
                 .SetWordList(DicewareWordList.French)
-                .GeneratePassword();
+                .GeneratePassword()
+                .ToString();
 
             Assert.That(password, Is.Not.Empty);
         }
@@ -145,7 +154,8 @@ namespace SpamOK.PasswordGenerator.Tests
         {
             var password = _passwordBuilder
                 .SetWordList(DicewareWordList.Ukrainian)
-                .GeneratePassword();
+                .GeneratePassword()
+                .ToString();
 
             Assert.That(password, Is.Not.Empty);
         }
@@ -158,7 +168,8 @@ namespace SpamOK.PasswordGenerator.Tests
         {
             var password = _passwordBuilder
                 .SetWordList(DicewareWordList.Italian)
-                .GeneratePassword();
+                .GeneratePassword()
+                .ToString();
 
             Assert.That(password, Is.Not.Empty);
         }
@@ -171,31 +182,36 @@ namespace SpamOK.PasswordGenerator.Tests
         {
             var password = _passwordBuilder
                 .SetSeparator(DicewareSeparator.Dot)
-                .GeneratePassword();
+                .GeneratePassword()
+                .ToString();
 
             Assert.That(password, Does.Contain("."));
 
             password = _passwordBuilder
                 .SetSeparator(DicewareSeparator.Space)
-                .GeneratePassword();
+                .GeneratePassword()
+                .ToString();
 
             Assert.That(password, Does.Contain(" "));
 
             password = _passwordBuilder
                 .SetSeparator(DicewareSeparator.Dash)
-                .GeneratePassword();
+                .GeneratePassword()
+                .ToString();
 
             Assert.That(password, Does.Contain("-"));
 
             password = _passwordBuilder
                 .SetSeparator(DicewareSeparator.Underscore)
-                .GeneratePassword();
+                .GeneratePassword()
+                .ToString();
 
             Assert.That(password, Does.Contain("_"));
 
             password = _passwordBuilder
                 .SetSeparator(DicewareSeparator.None)
-                .GeneratePassword();
+                .GeneratePassword()
+                .ToString();
 
             Assert.That(password, Does.Not.Contain("-"));
             Assert.That(password, Does.Not.Contain(" "));
@@ -211,13 +227,15 @@ namespace SpamOK.PasswordGenerator.Tests
         {
             var password = _passwordBuilder
                 .SetCapitalization(DicewareCapitalization.None)
-                .GeneratePassword();
+                .GeneratePassword()
+                .ToString();
 
             Assert.That(password, Is.EqualTo(password.ToLower()));
 
             password = _passwordBuilder
                 .SetCapitalization(DicewareCapitalization.TitleCase)
-                .GeneratePassword();
+                .GeneratePassword()
+                .ToString();
 
             // Assert that there are exactly 5 capital letters in the password because
             // there are 5 words in the password.
@@ -225,13 +243,15 @@ namespace SpamOK.PasswordGenerator.Tests
 
             password = _passwordBuilder
                 .SetCapitalization(DicewareCapitalization.Lowercase)
-                .GeneratePassword();
+                .GeneratePassword()
+                .ToString();
 
             Assert.That(password, Is.EqualTo(password.ToLower()));
 
             password = _passwordBuilder
                 .SetCapitalization(DicewareCapitalization.Uppercase)
-                .GeneratePassword();
+                .GeneratePassword()
+                .ToString();
 
             Assert.That(password, Is.EqualTo(password.ToUpper()));
 
@@ -242,7 +262,8 @@ namespace SpamOK.PasswordGenerator.Tests
             {
                 password = _passwordBuilder
                     .SetCapitalization(DicewareCapitalization.Random)
-                    .GeneratePassword();
+                    .GeneratePassword()
+                    .ToString();
 
                 if (password.CountCapitalLetters() > 0)
                 {
@@ -265,22 +286,26 @@ namespace SpamOK.PasswordGenerator.Tests
             // Internals are tested in TestPasswordGenerationSaltInternals().
             var password = _passwordBuilder
                 .SetSalt(DicewareSalt.None)
-                .GeneratePassword();
+                .GeneratePassword()
+                .ToString();
             Assert.That(password, Is.Not.Empty);
 
             password = _passwordBuilder
                 .SetSalt(DicewareSalt.Prefix)
-                .GeneratePassword();
+                .GeneratePassword()
+                .ToString();
             Assert.That(password, Is.Not.Empty);
 
             password = _passwordBuilder
                 .SetSalt(DicewareSalt.Sprinkle)
-                .GeneratePassword();
+                .GeneratePassword()
+                .ToString();
             Assert.That(password, Is.Not.Empty);
 
             password = _passwordBuilder
                 .SetSalt(DicewareSalt.Suffix)
-                .GeneratePassword();
+                .GeneratePassword()
+                .ToString();
             Assert.That(password, Is.Not.Empty);
         }
 
@@ -336,7 +361,8 @@ namespace SpamOK.PasswordGenerator.Tests
             {
                 var password = _passwordBuilder
                     .HackerifyPassword(true)
-                    .GeneratePassword();
+                    .GeneratePassword()
+                    .ToString();
 
                 // Test that the password contains no characters that should have
                 // been replaced with l33tspeak alternatives.

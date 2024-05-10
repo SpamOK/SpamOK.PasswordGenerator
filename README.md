@@ -68,7 +68,8 @@ string password = passwordBuilder
     .UseSpecialChars(true)
     .UseNonAmbiguousChars(false)
     .ExcludeChars("abcdefg")
-    .GeneratePassword();
+    .GeneratePassword()
+    .ToString();
 ```
 
 #### (Optional) Enable/disable all options
@@ -83,7 +84,8 @@ var passwordBuilder = new SpamOK.PasswordGenerator.BasicPasswordBuilder();
 string password = passwordBuilder
     .DisableAllOptions()
     .UseLowercaseLetters(true)
-    .GeneratePassword();
+    .GeneratePassword()
+    .ToString();
 ```
 
 ### 2. Diceware passphrase generation
@@ -104,7 +106,8 @@ string password = passwordBuilder
     .SetCapitalization(DicewareCapitalization.TitleCase)
     .SetSalt(DicewareSalt.Sprinkle)
     .HackerifyPassword(false)
-    .GeneratePassword();
+    .GeneratePassword()
+    .ToString();
 ```
 
 #### (Optional) Simple variant using default values
@@ -112,7 +115,7 @@ If you wish to generate a diceware password using all default values, then you c
 
 ```csharp
 var passwordBuilder = new SpamOK.PasswordGenerator.DicewarePasswordBuilder();
-string password = passwordBuilder.GeneratePassword();
+string password = passwordBuilder.GeneratePassword().ToString();
 ```
 
 ## Contributing

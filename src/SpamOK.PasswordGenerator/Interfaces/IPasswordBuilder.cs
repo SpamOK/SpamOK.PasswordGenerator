@@ -6,6 +6,8 @@
 //-----------------------------------------------------------------------
 namespace SpamOK.PasswordGenerator.Interfaces
 {
+    using SpamOK.PasswordGenerator.Models;
+
     /// <summary>
     /// Password builder interface.
     /// </summary>
@@ -14,7 +16,7 @@ namespace SpamOK.PasswordGenerator.Interfaces
         /// <summary>
         /// Generate a password based on the set builder options.
         /// </summary>
-        /// <returns>The generated password as string.</returns>
-        string GeneratePassword();
+        /// <returns>The generated password object.</returns>
+        Password GeneratePassword();
     }
 }

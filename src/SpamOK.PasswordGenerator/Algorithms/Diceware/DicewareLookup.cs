@@ -39,9 +39,7 @@ namespace SpamOK.PasswordGenerator.Algorithms.Diceware
         public string GetWordByDiceIndex(int diceIndex)
         {
             // Convert dice index from base-6 to base-10
-            int index = ConvertBase6ToBase10(diceIndex.ToString()) - 1;
-
-            // Check if index is within the bounds of the array
+            int index = ConvertBase6ToBase10(diceIndex.ToString());
             return _words[index];
         }
 
@@ -91,6 +89,11 @@ namespace SpamOK.PasswordGenerator.Algorithms.Diceware
             foreach (char digit in base6)
             {
                 result = (result * 6) + (digit - '1');
+            }
+
+            if (result < 0)
+            {
+                return 0;
             }
 
             return result;

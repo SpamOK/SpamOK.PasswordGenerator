@@ -7,6 +7,7 @@
 
 using System.Runtime.CompilerServices;
 using SpamOK.PasswordGenerator.Helpers;
+using SpamOK.PasswordGenerator.Models;
 
 [assembly: InternalsVisibleTo("SpamOK.PasswordGenerator.Tests")]
 
@@ -16,11 +17,12 @@ namespace SpamOK.PasswordGenerator
     using System.Security.Cryptography;
     using SpamOK.PasswordGenerator.Algorithms.Diceware;
     using SpamOK.PasswordGenerator.Algorithms.Diceware.Extensions;
+    using SpamOK.PasswordGenerator.Interfaces;
 
     /// <summary>
     /// Diceware password generation algorithm.
     /// </summary>
-    public class DicewarePasswordBuilder
+    public class DicewarePasswordBuilder : IPasswordBuilder
     {
         private int _length = 5;
         private DicewareWordList _wordList = DicewareWordList.English;
@@ -99,7 +101,7 @@ namespace SpamOK.PasswordGenerator
         /// Generate a new password based on the configured settings.
         /// </summary>
         /// <returns>Generated password.</returns>
-        public string GeneratePassword()
+        public Password GeneratePassword()
         {
             string[] words = new string[_length];
 
@@ -131,7 +133,9 @@ namespace SpamOK.PasswordGenerator
                 passphrase = HackerifyHelper.ConvertToHackerify(passphrase);
             }
 
-            return passphrase;
+            var dicewareSymbolCount = 40; // Assuming 40 possible characters in a diceware word (a-z, 0-9 and 4 special chars)
+            var entropy = EntropyCalculatorHelper.CalculateStringEntropy(passphrase, dicewareSymbolCount);
+            return new Password(passphrase, entropy);
         }
 
         /// <summary>
@@ -196,12 +200,7 @@ namespace SpamOK.PasswordGenerator
         private int GenerateRandomDicewareIndex()
         {
             // Roll a 1-6 dice.
-            byte[] randomBytes = new byte[5];
-            using (var rng = new RNGCryptoServiceProvider())
-            {
-                rng.GetBytes(randomBytes);
-            }
-
+            byte[] randomBytes = RandomHelper.GenerateRandomBytes(5);
             int[] diceRolls = new int[5];
             string charSet = "123456";
             for (int i = 0; i < 5; i++)
@@ -212,6 +211,17 @@ namespace SpamOK.PasswordGenerator
 
             // Concatenate the dice rolls into a single number.
             return int.Parse(string.Concat(diceRolls));
+        }
+
+        /// <summary>
+        /// Calculate the entropy for a Diceware passphrase based on the amount of words used.
+        /// </summary>
+        /// <returns>Entropy in bits.</returns>
+        private double CalculateEntropy()
+        {
+            var wordsInDicewareList = 7776.0;
+            var bitsPerWord = Math.Log(wordsInDicewareList) / Math.Log(2);
+            return bitsPerWord * _length;
         }
     }
 }
