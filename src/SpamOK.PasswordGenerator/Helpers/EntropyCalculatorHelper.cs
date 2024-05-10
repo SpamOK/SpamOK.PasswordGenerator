@@ -46,15 +46,6 @@ namespace SpamOK.PasswordGenerator.Helpers
         /// <returns>The total keyspace as a double.</returns>
         private static double CalculateKeyspace(double bitEntropy)
         {
-            // Log base 2 of Double.MaxValue to determine the highest allowable entropy.
-            double maxBitEntropy = Math.Log(double.MaxValue, 2);
-
-            if (bitEntropy > maxBitEntropy)
-            {
-                return double.MaxValue;
-            }
-
-            // Otherwise, calculate the total keyspace from the bit entropy safely.
             return Math.Pow(2, bitEntropy);
         }
     }
