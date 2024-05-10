@@ -32,11 +32,11 @@ namespace SpamOK.PasswordGenerator.Helpers
         /// <param name="bitEntropy">Entropy in bits of the password.</param>
         /// <param name="guessesPerSecond">Amount of guesses per second an attacker could do. Defaults to very conservative 1 trillion/sec.</param>
         /// <returns>Time to crack in seconds.</returns>
-        public static int GetTimeToCrack(double bitEntropy, double guessesPerSecond = 1e12)
+        public static long GetTimeToCrack(double bitEntropy, double guessesPerSecond = 1e12)
         {
             double keyspace = CalculateKeyspace(bitEntropy);
             double averageKeysToTry = keyspace / 2;
-            return (int)(averageKeysToTry / guessesPerSecond);
+            return (long)(averageKeysToTry / guessesPerSecond);
         }
 
         /// <summary>
