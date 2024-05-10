@@ -6,6 +6,7 @@
 //-----------------------------------------------------------------------
 namespace SpamOK.PasswordGenerator.Models
 {
+    using System;
     using SpamOK.PasswordGenerator.Helpers;
 
     /// <summary>
@@ -60,7 +61,7 @@ namespace SpamOK.PasswordGenerator.Models
         /// <returns>Time to crack password in seconds as integer.</returns>
         public double GetTimeToCrackSeconds()
         {
-            return EntropyCalculatorHelper.GetTimeToCrackSeconds(BitEntropy);
+            return Math.Ceiling(EntropyCalculatorHelper.GetTimeToCrackSeconds(BitEntropy));
         }
     }
 }
