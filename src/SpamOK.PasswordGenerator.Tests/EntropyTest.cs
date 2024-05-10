@@ -31,6 +31,7 @@ namespace SpamOK.PasswordGenerator.Tests
             {
                 Assert.That((int)password.GetEntropy().BitEntropy, Is.EqualTo(70));
                 Assert.That(password.GetEntropy().GetPasswordStrength(), Is.EqualTo(PasswordStrength.Strong));
+                Assert.That(password.GetEntropy().GetTimeToCrackSeconds(), Is.GreaterThanOrEqualTo(100000000));
             });
         }
 
@@ -51,6 +52,7 @@ namespace SpamOK.PasswordGenerator.Tests
             {
                 Assert.That((int)password.GetEntropy().BitEntropy, Is.EqualTo(93));
                 Assert.That(password.GetEntropy().GetPasswordStrength(), Is.EqualTo(PasswordStrength.Strong));
+                Assert.That(password.GetEntropy().GetTimeToCrackSeconds(), Is.GreaterThanOrEqualTo(1000000000));
             });
         }
 
@@ -70,7 +72,33 @@ namespace SpamOK.PasswordGenerator.Tests
             {
                 Assert.That((int)password.GetEntropy().BitEntropy, Is.GreaterThanOrEqualTo(60));
                 Assert.That(password.GetEntropy().GetPasswordStrength(), Is.GreaterThanOrEqualTo(PasswordStrength.Strong));
+                Assert.That(password.GetEntropy().GetTimeToCrackSeconds(), Is.GreaterThanOrEqualTo(100000000));
             });
+        }
+
+        /// <summary>
+        /// Test that entropy calculation helper method work as expected for lowercase letters only.
+        /// </summary>
+        [Test]
+        public void TestEntropyPasswordStrength()
+        {
+            var passwordEntropy = new PasswordEntropy(10);
+            Assert.That(passwordEntropy.GetPasswordStrength(), Is.EqualTo(PasswordStrength.VeryWeak));
+
+            passwordEntropy = new PasswordEntropy(30);
+            Assert.That(passwordEntropy.GetPasswordStrength(), Is.EqualTo(PasswordStrength.Weak));
+
+            passwordEntropy = new PasswordEntropy(45);
+            Assert.That(passwordEntropy.GetPasswordStrength(), Is.EqualTo(PasswordStrength.Mediocre));
+
+            passwordEntropy = new PasswordEntropy(60);
+            Assert.That(passwordEntropy.GetPasswordStrength(), Is.EqualTo(PasswordStrength.Strong));
+
+            passwordEntropy = new PasswordEntropy(130);
+            Assert.That(passwordEntropy.GetPasswordStrength(), Is.EqualTo(PasswordStrength.VeryStrong));
+
+            passwordEntropy = new PasswordEntropy(195);
+            Assert.That(passwordEntropy.GetPasswordStrength(), Is.EqualTo(PasswordStrength.Overkill));
         }
     }
 }
