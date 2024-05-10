@@ -75,7 +75,7 @@ namespace SpamOK.PasswordGenerator.Helpers
         /// </summary>
         /// <param name="size">Number of bytes to generate.</param>
         /// <returns>Array of random bytes.</returns>
-        private static byte[] GenerateRandomBytes(int size)
+        public static byte[] GenerateRandomBytes(int size)
         {
             byte[] randomBytes = new byte[size];
             using (var rng = new RNGCryptoServiceProvider())

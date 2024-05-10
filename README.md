@@ -70,7 +70,11 @@ string password = passwordBuilder
     .UseSpecialChars(true)
     .UseNonAmbiguousChars(false)
     .ExcludeChars("abcdefg")
-    .GeneratePassword();
+    .GeneratePassword()
+    .ToString();
+
+Console.WriteLine(password);
+// >>> Output: "y)Q-#vm0!YQ^"
 ```
 
 #### (Optional) Enable/disable all options
@@ -85,7 +89,11 @@ var passwordBuilder = new SpamOK.PasswordGenerator.BasicPasswordBuilder();
 string password = passwordBuilder
     .DisableAllOptions()
     .UseLowercaseLetters(true)
-    .GeneratePassword();
+    .GeneratePassword()
+    .ToString();
+
+Console.WriteLine(password);
+// >>> Output: "wlxbuqwb"
 ```
 
 ### 2. Diceware passphrase generation
@@ -106,7 +114,11 @@ string password = passwordBuilder
     .SetCapitalization(DicewareCapitalization.TitleCase)
     .SetSalt(DicewareSalt.Sprinkle)
     .HackerifyPassword(false)
-    .GeneratePassword();
+    .GeneratePassword()
+    .ToString();
+
+Console.WriteLine(password);
+// >>> Output: "Crow-Sea-Wean-Farmu-Dawn"
 ```
 
 #### (Optional) Simple variant using default values
@@ -114,7 +126,37 @@ If you wish to generate a diceware password using all default values, then you c
 
 ```csharp
 var passwordBuilder = new SpamOK.PasswordGenerator.DicewarePasswordBuilder();
-string password = passwordBuilder.GeneratePassword();
+string password = passwordBuilder.GeneratePassword().ToString();
+
+Console.WriteLine(password);
+// Output: "green-game-glow-wage-wonder"
+```
+
+### 3. Password model
+Both the BasicPasswordBuilder and DicewarePasswordBuilder classes return a Password object. This object contains the generated password as a string, as well information about the password's strength.
+The following example demonstrates how to access the password and strength properties:
+
+```csharp
+using SpamOK.PasswordGenerator.Helpers
+
+var passwordBuilder = new SpamOK.PasswordGenerator.BasicPasswordBuilder();
+var passwordObject = passwordBuilder
+    .EnableAllOptions()
+    .SetLength(10)
+    .GeneratePassword();
+
+// Get the password as a string.
+Console.WriteLine(passwordObject.ToString());
+// >>> Output: "^8Ap%|]#,3"
+
+// Get the password's strength indicator as Enum.
+Console.WriteLine(passwordObject.GetEntropy().GetPasswordStrength());
+// >>> Output: PasswordStrength.Strong
+
+// Get the amount of time it would take to crack the password in seconds with
+// a - very - conservative assumption of 1 trillion guesses per second.
+Console.WriteLine(passwordObject.GetEntropy().GetTimeToCrackSeconds());
+// >>> Output: 2815676 (= 32 days)
 ```
 
 ## Contributing

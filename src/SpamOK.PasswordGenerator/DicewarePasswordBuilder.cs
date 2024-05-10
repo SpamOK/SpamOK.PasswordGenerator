@@ -7,6 +7,7 @@
 
 using System.Runtime.CompilerServices;
 using SpamOK.PasswordGenerator.Helpers;
+using SpamOK.PasswordGenerator.Models;
 
 [assembly: InternalsVisibleTo("SpamOK.PasswordGenerator.Tests")]
 
@@ -16,11 +17,12 @@ namespace SpamOK.PasswordGenerator
     using System.Security.Cryptography;
     using SpamOK.PasswordGenerator.Algorithms.Diceware;
     using SpamOK.PasswordGenerator.Algorithms.Diceware.Extensions;
+    using SpamOK.PasswordGenerator.Interfaces;
 
     /// <summary>
     /// Diceware password generation algorithm.
     /// </summary>
-    public class DicewarePasswordBuilder
+    public class DicewarePasswordBuilder : IPasswordBuilder
     {
         private int _length = 5;
         private DicewareWordList _wordList = DicewareWordList.English;
@@ -99,7 +101,65 @@ namespace SpamOK.PasswordGenerator
         /// Generate a new password based on the configured settings.
         /// </summary>
         /// <returns>Generated password.</returns>
-        public string GeneratePassword()
+        public Password GeneratePassword()
+        {
+            string[] words = GetDicewareWords();
+            string passphrase = string.Join(_separator.GetSeparatorCharacter().ToString(), words);
+
+            // Add salt to the passphrase based on the configured salt option.
+            passphrase = AddSalt(passphrase);
+
+            // Convert the passphrase to leetspeak if hackerify mode is enabled.
+            if (_hackerify)
+            {
+                passphrase = HackerifyHelper.ConvertToHackerify(passphrase);
+            }
+
+            // Assuming 40 possible characters in a diceware word (a-z, 0-9 and four separator chars).
+            var dicewareSymbolCount = 40;
+            var entropy = EntropyCalculatorHelper.CalculateStringEntropy(passphrase, dicewareSymbolCount);
+            return new Password(passphrase, entropy);
+        }
+
+        /// <summary>
+        /// Adds a salt to the passphrase based on the configured salt option.
+        /// </summary>
+        /// <param name="passphrase">The passphrase to add the salt to.</param>
+        /// <param name="salt">The character that acts as the salt.</param>
+        /// <returns>Passphrase with salt included.</returns>
+        internal string AddSalt(string passphrase, char salt)
+        {
+            switch (_salt)
+            {
+                case DicewareSalt.Prefix:
+                    return salt + passphrase;
+                case DicewareSalt.Sprinkle:
+                    int index = RandomHelper.GenerateRandomNumberBetween(0, passphrase.Length);
+                    return passphrase.Insert(index, salt.ToString());
+                case DicewareSalt.Suffix:
+                    return passphrase + salt;
+                case DicewareSalt.None:
+                default:
+                    return passphrase;
+            }
+        }
+
+        /// <summary>
+        /// Adds a random salt to the passphrase based on the configured salt option.
+        /// </summary>
+        /// <param name="passphrase">The passphrase to add the random salt to.</param>
+        /// <returns>Passphrase with salt included.</returns>
+        internal string AddSalt(string passphrase)
+        {
+            var salt = RandomHelper.GenerateRandomAlphanumericCharacter();
+            return AddSalt(passphrase, salt);
+        }
+
+        /// <summary>
+        /// Generate diceware words for the password.
+        /// </summary>
+        /// <returns>Returns string array with individual diceware words.</returns>
+        private string[] GetDicewareWords()
         {
             string[] words = new string[_length];
 
@@ -119,42 +179,7 @@ namespace SpamOK.PasswordGenerator
                 words[i] = word;
             }
 
-            string passphrase = string.Join(_separator.GetSeparatorCharacter().ToString(), words);
-
-            // Add salt to the passphrase based on the configured salt option.
-            var salt = RandomHelper.GenerateRandomAlphanumericCharacter();
-            passphrase = AddSalt(salt, passphrase);
-
-            // Convert the passphrase to leetspeak if hackerify mode is enabled.
-            if (_hackerify)
-            {
-                passphrase = HackerifyHelper.ConvertToHackerify(passphrase);
-            }
-
-            return passphrase;
-        }
-
-        /// <summary>
-        /// Adds a salt to the passphrase based on the configured salt option.
-        /// </summary>
-        /// <param name="salt">The character that acts as the salt.</param>
-        /// <param name="passphrase">The passphrase to add the salt to.</param>
-        /// <returns>Passphrase with salt included.</returns>
-        internal string AddSalt(char salt, string passphrase)
-        {
-            switch (_salt)
-            {
-                case DicewareSalt.Prefix:
-                    return salt + passphrase;
-                case DicewareSalt.Sprinkle:
-                    int index = RandomHelper.GenerateRandomNumberBetween(0, passphrase.Length);
-                    return passphrase.Insert(index, salt.ToString());
-                case DicewareSalt.Suffix:
-                    return passphrase + salt;
-                case DicewareSalt.None:
-                default:
-                    return passphrase;
-            }
+            return words;
         }
 
         /// <summary>
@@ -196,12 +221,7 @@ namespace SpamOK.PasswordGenerator
         private int GenerateRandomDicewareIndex()
         {
             // Roll a 1-6 dice.
-            byte[] randomBytes = new byte[5];
-            using (var rng = new RNGCryptoServiceProvider())
-            {
-                rng.GetBytes(randomBytes);
-            }
-
+            byte[] randomBytes = RandomHelper.GenerateRandomBytes(5);
             int[] diceRolls = new int[5];
             string charSet = "123456";
             for (int i = 0; i < 5; i++)

@@ -45,11 +45,11 @@ namespace SpamOK.PasswordGenerator.Tests
         public void TestEnableAllOptionsException()
         {
             // Attempt to generate a password with all options enabled.
-            string password = _passwordBuilder
+            var password = _passwordBuilder
                 .EnableAllOptions()
                 .GeneratePassword();
 
-            Assert.That(password, Is.Not.Empty);
+            Assert.That(password.ToString(), Is.Not.Empty);
         }
 
         /// <summary>
@@ -58,11 +58,11 @@ namespace SpamOK.PasswordGenerator.Tests
         [Test]
         public void TestPasswordLength()
         {
-            string password = _passwordBuilder
+            var password = _passwordBuilder
                 .SetLength(12)
                 .GeneratePassword();
 
-            Assert.That(password, Has.Length.EqualTo(12));
+            Assert.That(password.ToString(), Has.Length.EqualTo(12));
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace SpamOK.PasswordGenerator.Tests
             // Generate 100 passwords and check that all of them contain only lowercase letters.
             for (int i = 0; i < 100; i++)
             {
-                string password = _passwordBuilder.GeneratePassword();
+                string password = _passwordBuilder.GeneratePassword().ToString();
                 Assert.That(password, Does.Match("^[a-z]+$"));
             }
         }
@@ -96,7 +96,7 @@ namespace SpamOK.PasswordGenerator.Tests
             // Generate 100 passwords and check that all of them contain only lowercase letters.
             for (int i = 0; i < 100; i++)
             {
-                string password = _passwordBuilder.GeneratePassword();
+                string password = _passwordBuilder.GeneratePassword().ToString();
                 Assert.That(password, Does.Match("^[A-Z]+$"));
             }
         }
@@ -114,7 +114,7 @@ namespace SpamOK.PasswordGenerator.Tests
             // Generate 100 passwords and check that all of them contain only uppercase letters.
             for (int i = 0; i < 100; i++)
             {
-                string password = _passwordBuilder.GeneratePassword();
+                string password = _passwordBuilder.GeneratePassword().ToString();
                 Assert.That(password, Does.Match("^[0-9]+$"));
             }
         }
@@ -132,7 +132,7 @@ namespace SpamOK.PasswordGenerator.Tests
             // Generate 100 passwords and check that all of them only contain special characters.
             for (int i = 0; i < 100; i++)
             {
-                string password = _passwordBuilder.GeneratePassword();
+                string password = _passwordBuilder.GeneratePassword().ToString();
                 Assert.That(password, Does.Match(@"^[\!@#$%^&*()_=+[\]{}|;:,.<>?-]+$"));
             }
         }
@@ -150,7 +150,7 @@ namespace SpamOK.PasswordGenerator.Tests
             // Generate 100 passwords and check that none of them contain ambiguous characters
             for (int i = 0; i < 100; i++)
             {
-                string password = _passwordBuilder.GeneratePassword();
+                string password = _passwordBuilder.GeneratePassword().ToString();
 
                 Assert.That(password, Does.Not.Contain("l"));
                 Assert.That(password, Does.Not.Contain("1"));
@@ -176,7 +176,7 @@ namespace SpamOK.PasswordGenerator.Tests
             // Generate 100 passwords and check that all of them only contain special characters.
             for (int i = 0; i < 100; i++)
             {
-                string password = _passwordBuilder.GeneratePassword();
+                string password = _passwordBuilder.GeneratePassword().ToString();
 
                 Assert.That(password, Does.Not.Contain("1"));
                 Assert.That(password, Does.Not.Contain("2"));
@@ -209,7 +209,8 @@ namespace SpamOK.PasswordGenerator.Tests
                     .UseSpecialChars(true)
                     .UseNonAmbiguousChars(false)
                     .ExcludeChars("l1Io0O")
-                    .GeneratePassword();
+                    .GeneratePassword()
+                    .ToString();
 
                 Assert.That(passwords.Add(password), Is.True);
             }
@@ -227,7 +228,8 @@ namespace SpamOK.PasswordGenerator.Tests
                 string password = _passwordBuilder
                     .DisableAllOptions()
                     .UseLowercaseLetters(true)
-                    .GeneratePassword();
+                    .GeneratePassword()
+                    .ToString();
 
                 // Assert that password only contains lowercase letters
                 Assert.That(password, Does.Match("^[a-z]+$"));
