@@ -325,5 +325,32 @@ namespace SpamOK.PasswordGenerator.Tests
             DicewareLookup lookup = new DicewareLookup(DicewareWordList.English);
             Assert.Throws<InvalidDataException>(() => lookup.LoadWords("SpamOK.PasswordGenerator.Algorithms.Diceware.WordLists.TestAssets.error.diceware"));
         }
+
+        /// <summary>
+        /// Test that generating a diceware password with hackerify mode enabled works as expected.
+        /// </summary>
+        [Test]
+        public void TestPasswordGenerationHackerify()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                var password = _passwordBuilder
+                    .HackerifyPassword(true)
+                    .GeneratePassword();
+
+                // Test that the password contains no characters that should have
+                // been replaced with l33tspeak alternatives.
+                Assert.Multiple(() =>
+                {
+                    Assert.That(password, Does.Not.Contain("a"));
+                    Assert.That(password, Does.Not.Contain("b"));
+                    Assert.That(password, Does.Not.Contain("e"));
+                    Assert.That(password, Does.Not.Contain("i"));
+                    Assert.That(password, Does.Not.Contain("l"));
+                    Assert.That(password, Does.Not.Contain("o"));
+                    Assert.That(password, Does.Not.Contain("t"));
+                });
+            }
+        }
     }
 }
