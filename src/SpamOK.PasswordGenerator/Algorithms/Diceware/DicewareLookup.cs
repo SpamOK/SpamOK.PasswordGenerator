@@ -91,11 +91,6 @@ namespace SpamOK.PasswordGenerator.Algorithms.Diceware
                 result = (result * 6) + (digit - '1');
             }
 
-            if (result < 0)
-            {
-                return 0;
-            }
-
             return result;
         }
     }

@@ -11,7 +11,7 @@ namespace SpamOK.PasswordGenerator.Helpers
     /// <summary>
     /// Helper class to calculate entropy and keyspace for Diceware passwords.
     /// </summary>
-    public class EntropyCalculatorHelper
+    public static class EntropyCalculatorHelper
     {
         /// <summary>
         /// Calculate the entropy of a string given the amount of possible symbols used in the string.
@@ -29,7 +29,7 @@ namespace SpamOK.PasswordGenerator.Helpers
         /// <summary>
         /// Calculate the average time to crack a passphrase based on its bit entropy and guessing rate in seconds.
         /// </summary>
-        /// <param name="bitEntropy">asd.</param>
+        /// <param name="bitEntropy">Entropy in bits of the password.</param>
         /// <param name="guessesPerSecond">Amount of guesses per second an attacker could do. Defaults to very conservative 1 trillion/sec.</param>
         /// <returns>Time to crack in seconds.</returns>
         public static int GetTimeToCrack(double bitEntropy, double guessesPerSecond = 1e12)

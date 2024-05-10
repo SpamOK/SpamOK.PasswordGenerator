@@ -13,19 +13,13 @@ namespace SpamOK.PasswordGenerator.Models
     /// </summary>
     public class PasswordEntropy
     {
-        private string _password;
-        private int _timeToCrack;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PasswordEntropy"/> class.
         /// </summary>
-        /// <param name="password">The generated password.</param>
         /// <param name="entropy">The entropy of the password.</param>
-        public PasswordEntropy(string password, double entropy)
+        public PasswordEntropy(double entropy)
         {
-            _password = password;
             BitEntropy = entropy;
-            _timeToCrack = EntropyCalculatorHelper.GetTimeToCrack(entropy);
         }
 
         /// <summary>
@@ -66,7 +60,7 @@ namespace SpamOK.PasswordGenerator.Models
         /// <returns>Time to crack password in seconds as integer.</returns>
         public int GetTimeToCrackSeconds()
         {
-            return _timeToCrack;
+            return EntropyCalculatorHelper.GetTimeToCrack(BitEntropy);
         }
     }
 }

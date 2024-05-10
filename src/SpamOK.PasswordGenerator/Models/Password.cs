@@ -11,8 +11,8 @@ namespace SpamOK.PasswordGenerator.Models
     /// </summary>
     public class Password
     {
-        private double _entropy;
-        private string _password;
+        private readonly double _entropy;
+        private readonly string _password;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Password"/> class.
@@ -40,7 +40,7 @@ namespace SpamOK.PasswordGenerator.Models
         /// <returns>PasswordEntropy object.</returns>
         public PasswordEntropy GetEntropy()
         {
-            return new PasswordEntropy(_password, _entropy);
+            return new PasswordEntropy(_entropy);
         }
     }
 }
