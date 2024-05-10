@@ -137,7 +137,7 @@ namespace SpamOK.PasswordGenerator
 
             if (charSet.Length == 0)
             {
-                throw new InvalidOperationException("Cannot generate password: no characters to choose from. Please enable at least one character set in the PasswordBuilder options, e.g. UseLowercaseLetters(true).");
+                throw new InvalidOperationException("Error during generation: no characters to choose from. Please enable at least one character set in the PasswordBuilder options, e.g. UseLowercaseLetters(true).");
             }
 
             var password = GenerateRandomPassword(_length, charSet.ToString());
