@@ -4,10 +4,7 @@
 // Licensed under the MIT license. See LICENSE.md file in the project root for full license information.
 // </copyright>
 //-----------------------------------------------------------------------
-
 using System.Runtime.CompilerServices;
-using SpamOK.PasswordGenerator.Helpers;
-using SpamOK.PasswordGenerator.Models;
 
 [assembly: InternalsVisibleTo("SpamOK.PasswordGenerator.Tests")]
 
@@ -15,9 +12,12 @@ namespace SpamOK.PasswordGenerator
 {
     using System;
     using System.Security.Cryptography;
+    using System.Threading.Tasks;
     using SpamOK.PasswordGenerator.Algorithms.Diceware;
     using SpamOK.PasswordGenerator.Algorithms.Diceware.Extensions;
+    using SpamOK.PasswordGenerator.Helpers;
     using SpamOK.PasswordGenerator.Interfaces;
+    using SpamOK.PasswordGenerator.Models;
 
     /// <summary>
     /// Diceware password generation algorithm.
@@ -119,6 +119,15 @@ namespace SpamOK.PasswordGenerator
             var dicewareSymbolCount = 40;
             var entropy = EntropyCalculatorHelper.CalculateStringEntropy(passphrase, dicewareSymbolCount);
             return new Password(passphrase, entropy);
+        }
+
+        /// <summary>
+        /// Generate a new password based on the configured settings asynchronously.
+        /// </summary>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the generated password.</returns>
+        public Task<Password> GeneratePasswordAsync()
+        {
+            return Task.Run(() => GeneratePassword());
         }
 
         /// <summary>

@@ -9,6 +9,7 @@ namespace SpamOK.PasswordGenerator
     using System;
     using System.Linq;
     using System.Text;
+    using System.Threading.Tasks;
     using SpamOK.PasswordGenerator.Helpers;
     using SpamOK.PasswordGenerator.Interfaces;
     using SpamOK.PasswordGenerator.Models;
@@ -145,6 +146,16 @@ namespace SpamOK.PasswordGenerator
             var possibleSymbolsCount = GetPossibleSymbolsCount();
             var entropy = EntropyCalculatorHelper.CalculateStringEntropy(password, possibleSymbolsCount);
             return new Password(password, entropy);
+        }
+
+        /// <summary>
+        /// Generate a random password based on the specified length and character set asynchronously.
+        /// </summary>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the generated password.</returns>
+        /// <exception cref="InvalidOperationException">Thrown if no charsets have been enabled.</exception>
+        public Task<Password> GeneratePasswordAsync()
+        {
+            return Task.Run(() => GeneratePassword());
         }
 
         /// <summary>
