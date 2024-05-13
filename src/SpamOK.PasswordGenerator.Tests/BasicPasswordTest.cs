@@ -26,6 +26,19 @@ namespace SpamOK.PasswordGenerator.Tests
         }
 
         /// <summary>
+        /// Test the GeneratePassword method async wrapper.
+        /// </summary>
+        /// <returns>Returns task.</returns>
+        [Test]
+        public async Task TestAsyncMethod()
+        {
+            var result = await _passwordBuilder.GeneratePasswordAsync();
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.ToString(), Is.Not.Empty);
+        }
+
+        /// <summary>
         /// Ensure that DisableAllOptions works as expected.
         /// </summary>
         [Test]
