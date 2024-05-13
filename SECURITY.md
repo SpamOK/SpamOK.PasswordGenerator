@@ -2,11 +2,12 @@
 
 ## Supported Versions
 
-Currently, this library is still in development and has not yet reached a stable version. As such, only the latest version is supported.
+By default, only the latest major version is supported. When a new major version is released, the previous major version will receive security support for a maximum of 6 months.
 
 | Version | Supported                                      |
 |---------|------------------------------------------------|
-| < 1.0   | :white_check_mark: (latest release only) |
+| 1.0   | :white_check_mark: |
+| < 1.0   | :x: (alpha releases not supported, advise to upgrade) |
 
 
 ## Reporting a Vulnerability
