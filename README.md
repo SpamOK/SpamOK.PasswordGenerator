@@ -51,7 +51,7 @@ for things such as checking password strength, hackerifying strings and more.
 To install SpamOK.PasswordGenerator, use the following NuGet command:
 
 ```bash
-Install-Package SpamOK.PasswordGenerator -Version 0.2.0
+Install-Package SpamOK.PasswordGenerator -Version 1.0.0
 ```
 
 ## Usage
@@ -77,7 +77,7 @@ Console.WriteLine(password);
 // >>> Output: "y)Q-#vm0!YQ^"
 ```
 
-#### (Optional) Enable/disable all options
+#### Enable/disable all options
 
 Instead of enabling or disabling each option individually, you can use the
 DisableAllOptions() and EnableAllOptions() methods to quickly set all options to a specific state.
@@ -93,6 +93,23 @@ string password = passwordBuilder
     .ToString();
 
 Console.WriteLine(password);
+// >>> Output: "wlxbuqwb"
+```
+
+#### Async method
+
+If you are calling the GeneratePassword() method from an async client (e.g. Blazor), you can use the GeneratePasswordAsync() method instead which is awaitable:
+
+```csharp
+var passwordBuilder = new SpamOK.PasswordGenerator.BasicPasswordBuilder();
+
+// Retrieve the password object via the async method which is awaitable.
+var passwordObject = await passwordBuilder.GeneratePasswordAsync();
+
+// Get the actual password string from the object.
+var passwordString = passwordObject.ToString();
+
+Console.WriteLine(passwordString);
 // >>> Output: "wlxbuqwb"
 ```
 
@@ -121,7 +138,7 @@ Console.WriteLine(password);
 // >>> Output: "Crow-Sea-Wean-Farmu-Dawn"
 ```
 
-#### (Optional) Simple variant using default values
+#### Simple variant using default values
 If you wish to generate a diceware password using all default values, then you can directly call the GeneratePassword() method without setting any options:
 
 ```csharp
@@ -130,6 +147,23 @@ string password = passwordBuilder.GeneratePassword().ToString();
 
 Console.WriteLine(password);
 // Output: "green-game-glow-wage-wonder"
+```
+
+#### Async method
+
+If you are calling the GeneratePassword() method from an async client (e.g. Blazor), you can use the GeneratePasswordAsync() method instead which is awaitable:
+
+```csharp
+var passwordBuilder = new SpamOK.PasswordGenerator.BasicPasswordBuilder();
+
+// Retrieve the password object via the async method which is awaitable.
+var passwordObject = await passwordBuilder.GeneratePasswordAsync();
+
+// Get the actual password string from the object.
+var passwordString = passwordObject.ToString();
+
+Console.WriteLine(passwordString);
+// >>> Output: "green-game-glow-wage-wonder"
 ```
 
 ### 3. Password model
