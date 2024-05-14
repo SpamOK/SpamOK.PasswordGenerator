@@ -22,6 +22,10 @@
 
 The library supports two password generation methods: basic password generation and [Diceware](https://theworld.com/~reinhold/diceware.html) passphrase generation. The basic password generation method allows you to generate passwords with a configurable length and includes options for numbers, special characters, and uppercase/lowercase differentiation. The Diceware passphrase generation method generates passwords using a list of words from a wordlist, with options for word capitalization, word separation, and salt addition.
 
+## 🖥️ Live demo
+You can see the library in action on the official SpamOK website:
+[https://spamok.com/static/tools/password-generator](https://spamok.com/static/tools/password-generator)
+
 ## Features
 This library is designed to be easy to use and highly configurable, allowing developers to generate passwords that meet their specific requirements. The library is also fully unit tested, ensuring that it is reliable and robust.
 
