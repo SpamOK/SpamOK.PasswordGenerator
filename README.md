@@ -158,7 +158,7 @@ Console.WriteLine(password);
 If you are calling the GeneratePassword() method from an async client (e.g. Blazor), you can use the GeneratePasswordAsync() method instead which is awaitable:
 
 ```csharp
-var passwordBuilder = new SpamOK.PasswordGenerator.BasicPasswordBuilder();
+var passwordBuilder = new SpamOK.PasswordGenerator.DicewarePasswordBuilder();
 
 // Retrieve the password object via the async method which is awaitable.
 var passwordObject = await passwordBuilder.GeneratePasswordAsync();
@@ -175,7 +175,7 @@ Both the BasicPasswordBuilder and DicewarePasswordBuilder classes return a Passw
 The following example demonstrates how to access the password and strength properties:
 
 ```csharp
-using SpamOK.PasswordGenerator.Helpers
+using SpamOK.PasswordGenerator.Helpers;
 
 var passwordBuilder = new SpamOK.PasswordGenerator.BasicPasswordBuilder();
 var passwordObject = passwordBuilder
