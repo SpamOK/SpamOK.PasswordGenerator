@@ -55,7 +55,7 @@ for things such as checking password strength, hackerifying strings and more.
 To install SpamOK.PasswordGenerator, use the following NuGet command:
 
 ```bash
-Install-Package SpamOK.PasswordGenerator -Version 1.0.0
+Install-Package SpamOK.PasswordGenerator -Version 1.1.0
 ```
 
 ## Usage
