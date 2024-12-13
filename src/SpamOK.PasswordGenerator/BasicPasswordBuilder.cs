@@ -166,14 +166,40 @@ namespace SpamOK.PasswordGenerator
         /// <returns>Generated password.</returns>
         private static string GenerateRandomPassword(int length, string charSet)
         {
-            byte[] randomBytes = RandomHelper.GenerateRandomBytes(length);
             char[] chars = new char[length];
+
             for (int i = 0; i < length; i++)
             {
-                chars[i] = charSet[randomBytes[i] % charSet.Length];
+                chars[i] = GetUnbiasedRandomChar(charSet);
             }
 
             return new string(chars);
+        }
+
+        /// <summary>
+        /// Get a random character from the character set without modulo bias.
+        /// </summary>
+        /// <remarks>
+        /// See https://research.kudelskisecurity.com/2020/07/28/the-definitive-guide-to-modulo-bias-and-how-to-avoid-it/ for more information
+        /// about the modulo bias problem and how to avoid it.
+        /// </remarks>
+        /// <param name="charSet">Character set to choose from.</param>
+        /// <returns>Random character from the character set.</returns>
+        private static char GetUnbiasedRandomChar(string charSet)
+        {
+            // Calculate the largest multiple of charSet.Length that's <= 256
+            int maxValidValue = 256 - (256 % charSet.Length);
+
+            while (true)
+            {
+                var buffer = RandomHelper.GenerateRandomBytes(1);
+                if (buffer[0] < maxValidValue)
+                {
+                    return charSet[buffer[0] % charSet.Length];
+                }
+
+                // If the value is too large, try again
+            }
         }
 
         /// <summary>
