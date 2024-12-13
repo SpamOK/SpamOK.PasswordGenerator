@@ -260,9 +260,9 @@ namespace SpamOK.PasswordGenerator.Tests
                 }
             }
 
-            // Assert that at least 25 out of the 100 passwords have exactly 5 capital letters.
-            // Some words may not have 5 capital letters because of words that start with numbers, but at least 25% should.
-            Assert.That(countWithFiveCapitals, Is.GreaterThanOrEqualTo(50), "Less than 25 passwords have exactly 5 capital letters.");
+            // Assert that at least 50 out of the 100 passwords have exactly 5 capital letters.
+            // Some words may not have 5 capital letters because of words that start with numbers, but at least 50% should.
+            Assert.That(countWithFiveCapitals, Is.GreaterThanOrEqualTo(50), "Less than 50 passwords have exactly 5 capital letters.");
 
             password = _passwordBuilder
                 .SetCapitalization(DicewareCapitalization.Lowercase)
